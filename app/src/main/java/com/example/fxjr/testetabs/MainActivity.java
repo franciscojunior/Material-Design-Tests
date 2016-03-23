@@ -1,12 +1,10 @@
 package com.example.fxjr.testetabs;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -22,6 +20,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -51,8 +50,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -66,13 +63,8 @@ public class MainActivity extends AppCompatActivity
 //                        colorAnim.setRepeatCount(ValueAnimator.INFINITE);
 //                        colorAnim.setRepeatMode(ValueAnimator.REVERSE);
 //                        colorAnim.start();
-
-                        tabLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryCrypt));
-                        toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryCrypt));
                         break;
                     case 1:
-                        tabLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryLibrary));
-                        toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryLibrary));
                         break;
 
                 }
@@ -89,8 +81,10 @@ public class MainActivity extends AppCompatActivity
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_material_light)), "Crypt");
-        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.ripple_material_light)), "Library");
+//        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_material_light)), "Crypt");
+//        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.ripple_material_light)), "Library");
+        adapter.addFrag(CardsListFragment.newInstance(0, DatabaseHelper.ALL_FROM_CRYPT_QUERY), "Crypt");
+        adapter.addFrag(CardsListFragment.newInstance(1, DatabaseHelper.ALL_FROM_LIBRARY_QUERY), "Library");
         viewPager.setAdapter(adapter);
     }
 
@@ -150,4 +144,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
