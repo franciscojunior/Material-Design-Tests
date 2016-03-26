@@ -174,7 +174,7 @@ public class DatabaseHelper {
 
             // version where changelog has been viewed
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(APPLICATION_CONTEXT);
-            int databaseVersion = settings.getInt(KEY_DATABASE_VERSION, 1);
+            int databaseVersion = settings.getInt(KEY_DATABASE_VERSION, -1);
 
 
             if (databaseVersion != DATABASE_VERSION) {
@@ -184,7 +184,9 @@ public class DatabaseHelper {
                 editor.commit();
             }
 
+
             if (!databaseFile.exists()) {
+				Log.d(TAG, "Creating database file... ");
                 createCardsDatabaseFile();
             }
 
@@ -194,7 +196,7 @@ public class DatabaseHelper {
 
             DATABASE.execSQL("PRAGMA case_sensitive_like = true;");
 
-            if (databaseVersion != DATABASE_VERSION) {
+            if (databaseVersion != -1 && databaseVersion != DATABASE_VERSION) {
 
                 Log.d(TAG, "Starting database update...");
 
@@ -204,7 +206,11 @@ public class DatabaseHelper {
 
             }
 
+			Log.d(TAG, "database loaded ");
+
         }
+
+
 
         return DATABASE;
     }

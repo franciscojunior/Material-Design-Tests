@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,13 @@ import android.view.ViewGroup;
  */
 public class CardsListFragment extends Fragment{
 
+    private final static String TAG = "CardsListFragment";
+
+    public CursorRecyclerViewAdapter getCardsAdapter() {
+        return cardsAdapter;
+    }
+
+    private CursorRecyclerViewAdapter cardsAdapter;
 
     public CardsListFragment() {
     }
@@ -35,6 +43,7 @@ public class CardsListFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView... ");
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_cards_list, container, false);
 
 
@@ -55,9 +64,11 @@ public class CardsListFragment extends Fragment{
         Cursor c = db.rawQuery(query, null);
 
         if (cardType == 0)
-            recyclerView.setAdapter(new CryptCardsListViewAdapter(getContext(), c));
+            cardsAdapter = new CryptCardsListViewAdapter(getContext(), c);
         else
-            recyclerView.setAdapter(new LibraryCardsListViewAdapter(getContext(), c));
+            cardsAdapter = new LibraryCardsListViewAdapter(getContext(), c);
+
+        recyclerView.setAdapter(cardsAdapter);
 
         return recyclerView;
     }

@@ -2,6 +2,7 @@ package com.example.fxjr.testetabs;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +50,7 @@ public class LibraryCardsListViewAdapter extends CursorRecyclerViewAdapter<Libra
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         public TextView txtCardName;
         public TextView txtCardType;
@@ -64,6 +65,16 @@ public class LibraryCardsListViewAdapter extends CursorRecyclerViewAdapter<Libra
             txtCardName = (TextView) v.findViewById(R.id.txtCardName);
             txtCardClan = (TextView) v.findViewById(R.id.txtCardClan);
             txtCardDiscipline = (TextView) v.findViewById(R.id.txtCardDiscipline);
+
+            v.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            Snackbar.make(v, "Clicked on card " + txtCardName.getText(), Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
 
         }
     }

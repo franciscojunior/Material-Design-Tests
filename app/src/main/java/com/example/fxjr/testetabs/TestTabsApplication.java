@@ -26,9 +26,7 @@ public class TestTabsApplication extends Application {
         Log.d(TAG, "starting application");
 		DatabaseHelper.setApplicationContext(getApplicationContext());
 
-        // Setup database in background
-        new UpdateDatabaseOperation().execute();
-		
+
 //		FilterModel.initFilterModel(
 //				Arrays.asList(getResources().getStringArray(R.array.clans)),
 //				Arrays.asList(getResources().getStringArray(R.array.types)),
@@ -39,33 +37,4 @@ public class TestTabsApplication extends Application {
 		
 	}
 
-    private class UpdateDatabaseOperation extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-
-            try {
-                DatabaseHelper.getDatabase();
-            }
-            catch (Exception e) {
-                return false;
-            }
-
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                //theAdapter.notifyDataSetChanged();
-                //Toast.makeText(MainActivity.this, "Database Updated", Toast.LENGTH_SHORT).show();
-            }
-
-
-
-
-        }
-
-    }
-	
 }
