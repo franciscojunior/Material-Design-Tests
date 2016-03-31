@@ -18,6 +18,12 @@ public class CardsListFragment extends Fragment{
 
     private final static String TAG = "CardsListFragment";
 
+
+    private String filter;
+    private int cardType;
+    private String query;
+
+
     public CursorRecyclerViewAdapter getCardsAdapter() {
         return cardsAdapter;
     }
@@ -25,6 +31,10 @@ public class CardsListFragment extends Fragment{
     private CursorRecyclerViewAdapter cardsAdapter;
 
     public CardsListFragment() {
+        Log.d(TAG, "CardsListFragment constructor " + this);
+
+        //Thread.dumpStack();
+
     }
 
     public static CardsListFragment newInstance(int cardType, String listQuery) {
@@ -38,6 +48,29 @@ public class CardsListFragment extends Fragment{
 
         return f;
     }
+
+
+    public void setFilter(String filter, String[] parameters) {
+        this.filter = filter;
+
+        Log.d(TAG, "CardsListFragment: " + this);
+
+        Log.d(TAG, "setFilter... query:" +  query);
+
+        Log.d(TAG, "setFilter... cardsAdapter:" +  cardsAdapter);
+
+        SQLiteDatabase db = DatabaseHelper.getDatabase();
+
+        Cursor c = db.rawQuery(query + filter, parameters);
+
+        cardsAdapter.changeCursor(c);
+
+
+
+
+
+    }
+
 
 
     @Override
@@ -54,10 +87,11 @@ public class CardsListFragment extends Fragment{
         // use a linear layout manager
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
+        Log.d(TAG, "CardsListFragment: " + this);
         // specify an adapter (see also next example)
 
-        int cardType = getArguments().getInt("CardType");
-        String query = getArguments().getString("ListQuery");
+        cardType = getArguments().getInt("CardType");
+        query = getArguments().getString("ListQuery");
 
         SQLiteDatabase db = DatabaseHelper.getDatabase();
 

@@ -4,16 +4,15 @@ import android.animation.Animator;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -25,7 +24,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,14 +39,23 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        super.onCreate(savedInstanceState);
+
         Log.d(TAG, "onCreate... ");
 
-        new UpdateDatabaseOperation().execute();
 
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tablayout);
+
+
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -80,86 +87,14 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-                switch (tab.getPosition()) {
-                    case 0:
-//                        ValueAnimator
-//                                colorAnim = ObjectAnimator.ofInt(this, "backgroundColor", *//*Red*//*0xFFFF8080, *//*Blue*//*0xFF8080FF);
-//                        colorAnim.setDuration(3000);
-//                        colorAnim.setEvaluator(new ArgbEvaluator());
-//                        colorAnim.setRepeatCount(ValueAnimator.INFINITE);
-//                        colorAnim.setRepeatMode(ValueAnimator.REVERSE);
-//                        colorAnim.start();
-                        break;
-                    case 1:
-                        break;
-
-                }
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });*/
-
-
-        // Search related
-        SearchView searchView = (SearchView) findViewById(R.id.search);
-        // Sets searchable configuration defined in searchable.xml for this SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
-
-        setupSearchView(searchView);
 
 
 
 
-
-    }
-
-    @Override
-    protected void onResumeFragments() {
-        super.onResumeFragments();
-
-        Log.d(TAG, "onResumeFragments... ");
-//
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        Log.d(TAG, "onPostResume... ");
     }
 
     private void setupSearchView(final SearchView searchView) {
 
-
-
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                Log.d(TAG, "onClose... ");
-
-                final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-                toolbar.setVisibility(View.VISIBLE);
-                SearchView searchView = (SearchView) findViewById(R.id.search);
-                searchView.setVisibility(View.GONE);
-
-                SQLiteDatabase db = DatabaseHelper.getDatabase();
-
-                Cursor c = db.rawQuery(DatabaseHelper.ALL_FROM_CRYPT_QUERY , null);
-                cryptCardsListViewAdapter.changeCursor(c);
-
-                return true;
-            }
-        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -172,6 +107,13 @@ public class MainActivity extends AppCompatActivity
 
 
                 Log.d(TAG, "onQueryTextChange... ");
+
+                newText = "%" + newText + "%";
+
+
+
+                ((CardsListFragment)((ViewPagerAdapter)viewPager.getAdapter()).getCachedItem(0)).setFilter(" and lower(name) like ?", new String[] {newText});
+                ((CardsListFragment)((ViewPagerAdapter)viewPager.getAdapter()).getCachedItem(1)).setFilter(" and lower(name) like ?", new String[] {newText});
                 return true;
             }
         });
@@ -179,12 +121,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-        viewPagerAdapter.addFrag(CardsListFragment.newInstance(0, DatabaseHelper.ALL_FROM_CRYPT_QUERY), "Crypt");
-        viewPagerAdapter.addFrag(CardsListFragment.newInstance(1, DatabaseHelper.ALL_FROM_LIBRARY_QUERY), "Library");
-
         viewPager.setAdapter(viewPagerAdapter);
     }
 
@@ -202,6 +145,19 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+
+        // Sets searchable configuration defined in searchable.xml for this SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+
+        setupSearchView(searchView);
+
         return true;
     }
 
@@ -216,10 +172,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_search) {
-            final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            toolbar.setVisibility(View.GONE);
-            SearchView searchView = (SearchView) findViewById(R.id.search);
-            searchView.setVisibility(View.VISIBLE);
 
         }
 
@@ -261,67 +213,10 @@ public class MainActivity extends AppCompatActivity
 
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 
-            // Setup adapters
-            cryptCardsListViewAdapter = (CryptCardsListViewAdapter) ((CardsListFragment)((ViewPagerAdapter)viewPager.getAdapter()).getItem(0)).getCardsAdapter();
-
-            Log.d(TAG, (cryptCardsListViewAdapter == null) ? "true":"false");
-
-            libraryCardsListViewAdapter = (LibraryCardsListViewAdapter) ((CardsListFragment)((ViewPagerAdapter)viewPager.getAdapter()).getItem(1)).getCardsAdapter();
-
-            String query = intent.getStringExtra(SearchManager.QUERY);
-
-            query = "%" + query + "%";
-            SQLiteDatabase db = DatabaseHelper.getDatabase();
-
-            Cursor c = db.rawQuery(DatabaseHelper.ALL_FROM_CRYPT_QUERY + " and lower(name) like ?", new String[] {query});
-            cryptCardsListViewAdapter.changeCursor(c);
-
 
         }
 
 
     }
-
-
-
-    private class UpdateDatabaseOperation extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-
-            try {
-                DatabaseHelper.getDatabase();
-            } catch (Exception e) {
-                return false;
-            }
-
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-
-            Log.d(TAG, "onPostExecute... ");
-
-            if (result) {
-
-                viewPager = (ViewPager) findViewById(R.id.viewpager);
-                setupViewPager(viewPager);
-
-                tabLayout = (TabLayout) findViewById(R.id.tablayout);
-                tabLayout.setupWithViewPager(viewPager);
-
-
-                //theAdapter.notifyDataSetChanged();
-                //Toast.makeText(MainActivity.this, "Database Updated", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(MainActivity.this, "Database problems. Please, reinstall application", Toast.LENGTH_SHORT).show();
-            }
-
-
-        }
-    }
-
 
 }
