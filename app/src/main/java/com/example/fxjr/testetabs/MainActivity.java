@@ -25,6 +25,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -34,6 +37,8 @@ public class MainActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private CryptCardsListViewAdapter cryptCardsListViewAdapter;
     private LibraryCardsListViewAdapter libraryCardsListViewAdapter;
+
+    private List<FragmentFilterable> fragmentsToFilter = new ArrayList<>();
 
 
     @Override
@@ -53,8 +58,10 @@ public class MainActivity extends AppCompatActivity
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
 
 
+
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -108,12 +115,20 @@ public class MainActivity extends AppCompatActivity
 
                 Log.d(TAG, "onQueryTextChange... ");
 
-                newText = "%" + newText + "%";
+                newText = "%" + newText.toLowerCase() + "%";
 
 
 
-                ((CardsListFragment)((ViewPagerAdapter)viewPager.getAdapter()).getCachedItem(0)).setFilter(" and lower(name) like ?", new String[] {newText});
-                ((CardsListFragment)((ViewPagerAdapter)viewPager.getAdapter()).getCachedItem(1)).setFilter(" and lower(name) like ?", new String[] {newText});
+//                ((CardsListFragment)((ViewPagerAdapter)viewPager.getAdapter()).getCachedItem(0)).setFilter(" and lower(name) like ?", new String[] {newText});
+//                ((CardsListFragment)((ViewPagerAdapter)viewPager.getAdapter()).getCachedItem(1)).setFilter(" and lower(name) like ?", new String[] {newText});
+
+
+                for (FragmentFilterable fragment:
+                     fragmentsToFilter) {
+
+                    fragment.setFilter(" and lower(name) like ?", new String[] {newText});
+                }
+
                 return true;
             }
         });
@@ -124,6 +139,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);
+
+        if (fragment instanceof FragmentFilterable)
+            fragmentsToFilter.add((FragmentFilterable) fragment);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -218,5 +236,13 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
+
+    public interface FragmentFilterable {
+
+        void setFilter(String filter, String[] args);
+    }
+
+
 
 }

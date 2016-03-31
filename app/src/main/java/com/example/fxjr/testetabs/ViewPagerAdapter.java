@@ -3,6 +3,7 @@ package com.example.fxjr.testetabs;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.List;
  * Created by fxjr on 27/02/16.
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
+    private static final String TAG = "ViewPagerAdapter";
+
     private final Object[] fragments = new Object[2];
     private final String[] fragmentTitles = new String[] {"Crypt", "Library"};
 
@@ -24,6 +27,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     // i.e. When the activity is restarted.
     @Override
     public Fragment getItem(int position) {
+        Log.d(TAG, "getItem: ...");
         if (position == 0)
             return CardsListFragment.newInstance(0, DatabaseHelper.ALL_FROM_CRYPT_QUERY);
         else
