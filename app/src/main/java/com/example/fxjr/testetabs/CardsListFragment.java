@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FilterQueryProvider;
 
 /**
  * Created by fxjr on 17/03/16.
@@ -26,11 +27,11 @@ public class CardsListFragment extends Fragment implements MainActivity.Fragment
     private String query;
 
 
-    public CursorRecyclerViewAdapter getCardsAdapter() {
+    public CursorRecyclerAdapter getCardsAdapter() {
         return cardsAdapter;
     }
 
-    private CursorRecyclerViewAdapter cardsAdapter;
+    private CursorRecyclerAdapter cardsAdapter;
 
 
     private SQLiteDatabase db;
@@ -94,7 +95,22 @@ public class CardsListFragment extends Fragment implements MainActivity.Fragment
             cardsAdapter = new LibraryCardsListViewAdapter(getContext(), null);
 
 
+        cardsAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+            private static final String TAG = "CardsListFragment";
+
+            @Override
+            public Cursor runQuery(CharSequence constraint) {
+                Log.d(TAG, "onQueryTextChange: Thread Id: " + Thread.currentThread().getId());
+                return db.rawQuery(query + constraint, null);
+
+            }
+
+        });
+
+
         new QueryDatabaseOperation().execute(query);
+
+
 
     }
 

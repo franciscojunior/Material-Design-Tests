@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     private LibraryCardsListViewAdapter libraryCardsListViewAdapter;
 
     private List<FragmentFilterable> fragmentsToFilter = new ArrayList<>();
+    private List<CardsListFragment> fragmentsToFilter2 = new ArrayList<>();
 
 
     @Override
@@ -123,10 +124,19 @@ public class MainActivity extends AppCompatActivity
 //                ((CardsListFragment)((ViewPagerAdapter)viewPager.getAdapter()).getCachedItem(1)).setFilter(" and lower(name) like ?", new String[] {newText});
 
 
-                for (FragmentFilterable fragment:
-                     fragmentsToFilter) {
+//                for (FragmentFilterable fragment:
+//                     fragmentsToFilter) {
+//
+//                    fragment.setFilter(" and lower(name) like ?", new String[] {newText});
+//                }
 
-                    fragment.setFilter(" and lower(name) like ?", new String[] {newText});
+                for (CardsListFragment fragment:
+                        fragmentsToFilter2) {
+
+                    //fragment.setFilter(" and lower(name) like ?", new String[] {newText});
+
+                    Log.d(TAG, "onQueryTextChange: Thread Id: " + Thread.currentThread().getId());
+                    fragment.getCardsAdapter().getFilter().filter(" and lower(name) like '" + newText + "'");
                 }
 
                 return true;
@@ -142,6 +152,9 @@ public class MainActivity extends AppCompatActivity
 
         if (fragment instanceof FragmentFilterable)
             fragmentsToFilter.add((FragmentFilterable) fragment);
+
+        if (fragment instanceof CardsListFragment)
+            fragmentsToFilter2.add((CardsListFragment) fragment);
     }
 
     private void setupViewPager(ViewPager viewPager) {
