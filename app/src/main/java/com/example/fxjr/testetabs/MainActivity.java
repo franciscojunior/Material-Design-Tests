@@ -1,6 +1,7 @@
 package com.example.fxjr.testetabs;
 
 import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -17,13 +18,17 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +46,13 @@ public class MainActivity extends AppCompatActivity
     private List<FragmentFilterable> fragmentsToFilter = new ArrayList<>();
     private List<CardsListFragment> fragmentsToFilter2 = new ArrayList<>();
 
+    private LinearLayout search_container;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private DrawerArrowDrawable drawerArrowDrawable;
+
+    private boolean searchShown = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +63,7 @@ public class MainActivity extends AppCompatActivity
 
 
         setContentView(R.layout.activity_main);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -65,12 +77,12 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
 
                 // Reference: ﻿https://www.raywenderlich.com/103367/material-design
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
@@ -83,23 +95,71 @@ public class MainActivity extends AppCompatActivity
 
                 }
 
+
+                toggleSearchView();
+
+
+//                actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+//                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+
+//                actionBarDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Log.d(TAG, "onClick: actionbardrawer ");
+//                    }
+//                });
+
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+//        actionBarDrawerToggle = new ActionBarDrawerToggle(
+//                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//
+//        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+//
+//
+//        actionBarDrawerToggle.syncState();
+
+
+
+        drawerArrowDrawable = new DrawerArrowDrawable(getSupportActionBar().getThemedContext());
+
+
+        toolbar.setNavigationIcon(drawerArrowDrawable);
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        search_container = (LinearLayout) findViewById(R.id.search_container);
+
 
 
 
 
 
     }
+
+    private void toggleSearchView() {
+        playDrawerToggleAnim((DrawerArrowDrawable)toolbar.getNavigationIcon());
+
+        if (searchShown) {
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        } else {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
+        searchShown = !searchShown;
+    }
+
 
     private void setupSearchView(final SearchView searchView) {
 
@@ -184,10 +244,14 @@ public class MainActivity extends AppCompatActivity
 
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
 
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
 
-        setupSearchView(searchView);
+            setupSearchView(searchView);
+
+        }
+
 
         return true;
     }
@@ -199,16 +263,54 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        Log.d(TAG, "onOptionsItemSelected: ");
+
+        if (id == android.R.id.home) {
+            if (searchShown) {
+                toggleSearchView();
+            }
+            else {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+            return true;
+
+        } else if (id == R.id.action_settings) {  //noinspection SimplifiableIfStatement
+
+
             return true;
         } else if (id == R.id.action_search) {
+
+
+
 
         }
 
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void playDrawerToggleAnim(final DrawerArrowDrawable d) {
+        float start = d.getProgress();
+        float end = Math.abs(start - 1);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ValueAnimator offsetAnimator = ValueAnimator.ofFloat(start, end);
+            offsetAnimator.setDuration(300);
+            offsetAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+            offsetAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float offset = 0;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        offset = (Float) animation.getAnimatedValue();
+                    }
+                    d.setProgress(offset);
+                }
+            });
+            offsetAnimator.start();
+        }
+        else
+            d.setProgress(end);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
