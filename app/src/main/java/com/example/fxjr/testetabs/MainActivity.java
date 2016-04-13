@@ -117,6 +117,9 @@ public class MainActivity extends AppCompatActivity
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+
+        // Reference: http://stackoverflow.com/questions/30824324/clicking-hamburger-icon-on-toolbar-does-not-open-navigation-drawer?lq=1
+
 //        actionBarDrawerToggle = new ActionBarDrawerToggle(
 //                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 //
@@ -291,6 +294,8 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+    // Reference: http://stackoverflow.com/questions/26835209/appcompat-v7-toolbar-up-back-arrow-not-working
 
     public static void playDrawerToggleAnim(final DrawerArrowDrawable d) {
         float start = d.getProgress();
