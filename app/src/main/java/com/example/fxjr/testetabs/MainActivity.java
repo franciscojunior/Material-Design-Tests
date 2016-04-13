@@ -4,8 +4,11 @@ import android.animation.Animator;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.MatrixCursor;
+import android.database.sqlite.SQLiteBlobTooBigException;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -14,7 +17,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -24,6 +29,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.widget.AutoCompleteTextView;
+import android.widget.MultiAutoCompleteTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +47,16 @@ public class MainActivity extends AppCompatActivity
     private LibraryCardsListViewAdapter libraryCardsListViewAdapter;
 
     private List<FragmentFilterable> fragmentsToFilter = new ArrayList<>();
+    private SimpleCursorAdapter mAdapter;
 
+
+
+    private static final String[] SUGGESTIONS = {
+            "Bauru", "Sao Paulo", "Rio de Janeiro",
+            "Bahia", "Mato Grosso", "Minas Gerais",
+            "Tocantins", "Rio Grande do Sul"
+    };
+    private MultiAutoCompleteTextView search_cards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +80,9 @@ public class MainActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(viewPager);
 
 
+        search_cards = (MultiAutoCompleteTextView) getLayoutInflater().inflate(R.layout.search_cards_multiautotext, null);
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +100,22 @@ public class MainActivity extends AppCompatActivity
                     //view.setVisibility(View.VISIBLE);
                     anim.start();
 
+                }
+
+//                AppCompatAutoCompleteTextView e = new AppCompatAutoCompleteTextView(getSupportActionBar().getThemedContext());
+//            AutoCompleteTextView e = new AutoCompleteTextView(MainActivity.this);
+
+
+                if (!search_cards.isShown()) {
+
+                    getSupportActionBar().setDisplayShowTitleEnabled(false);
+                    toolbar.addView(search_cards);
+
+                    search_cards.requestFocus();
+                }
+                else {
+                    toolbar.removeView(search_cards);
+                    getSupportActionBar().setDisplayShowTitleEnabled(true);
                 }
 
             }
@@ -102,6 +138,24 @@ public class MainActivity extends AppCompatActivity
 
     private void setupSearchView(final SearchView searchView) {
 
+        // Reference: http://stackoverflow.com/questions/23658567/android-actionbar-searchview-suggestions-with-a-simple-string-array
+        final String[] from = new String[] {"cityName"};
+        final int[] to = new int[] {android.R.id.text1};
+        mAdapter = new SimpleCursorAdapter(MainActivity.this,
+                android.R.layout.simple_list_item_1,
+                null,
+                from,
+                to,
+                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+
+
+
+        searchView.setSuggestionsAdapter(mAdapter);
+
+
+
+
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -112,6 +166,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onQueryTextChange(String newText) {
 
+                populateAdapter(newText);
 
                 Log.d(TAG, "onQueryTextChange... ");
 
@@ -134,6 +189,18 @@ public class MainActivity extends AppCompatActivity
         });
 
 
+
+
+    }
+
+    // You must implements your logic to get data using OrmLite
+    private void populateAdapter(String query) {
+        final MatrixCursor c = new MatrixCursor(new String[]{ BaseColumns._ID, "cityName" });
+        for (int i=0; i<SUGGESTIONS.length; i++) {
+            if (SUGGESTIONS[i].toLowerCase().startsWith(query.toLowerCase()))
+                c.addRow(new Object[] {i, SUGGESTIONS[i]});
+        }
+        mAdapter.changeCursor(c);
     }
 
     @Override
@@ -169,12 +236,13 @@ public class MainActivity extends AppCompatActivity
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+//        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+//
+//        if (searchView != null) {
+//            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//            setupSearchView(searchView);
+//        }
 
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
-
-        setupSearchView(searchView);
 
         return true;
     }
@@ -189,8 +257,10 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        } else if (id == R.id.action_search) {
-
+//        } else if (id == R.id.action_search) {
+//
+//
+//
         }
 
 
