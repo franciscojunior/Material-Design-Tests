@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MultiAutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="?attr/actionBarSize"
     android:id="@+id/multiAutoCompleteTextView"
     android:layout_gravity="center_horizontal"
     android:background="@android:color/transparent"
-    android:paddingLeft="16dp"
+
     android:paddingRight="16dp"
     android:hint="Search cards..."
     android:theme="@style/AppTheme.AppBarOverlay">
