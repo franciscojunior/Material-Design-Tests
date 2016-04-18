@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -21,14 +22,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MultiAutoCompleteTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,13 +54,14 @@ public class MainActivity extends AppCompatActivity
     private List<FragmentFilterable> fragmentsToFilter = new ArrayList<>();
     private List<CardsListFragment> fragmentsToFilter2 = new ArrayList<>();
 
-    private LinearLayout search_container;
+    private FrameLayout search_container;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private DrawerArrowDrawable drawerArrowDrawable;
 
     private boolean searchShown = false;
+    private MultiAutoCompleteTextView search_bar_text_view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +105,11 @@ public class MainActivity extends AppCompatActivity
                 }
 
 
-                toggleSearchView();
+                AppBarLayout appbar = (AppBarLayout) findViewById(R.id.appbar);
+                appbar.setExpanded(true);
+                search_bar_text_view.requestFocus();
+
+                //toggleSearchView();
 
 
 //                actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
@@ -130,10 +143,10 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        drawerArrowDrawable = new DrawerArrowDrawable(getSupportActionBar().getThemedContext());
+        drawerArrowDrawable = new DrawerArrowDrawable(this);
 
 
-        toolbar.setNavigationIcon(drawerArrowDrawable);
+        //toolbar.setNavigationIcon(drawerArrowDrawable);
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -141,23 +154,117 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        search_container = (LinearLayout) findViewById(R.id.search_container);
+        search_container = (FrameLayout) getLayoutInflater().inflate(R.layout.persistent_search_bar, null);
+
+
+        setupSearchContainter(search_container);
 
 
 
-
-
+        toolbar.addView(search_container);
 
     }
 
+    private void setupSearchContainter(FrameLayout search_container) {
+
+        final ImageView imageView = (ImageView) search_container.findViewById(R.id.left_action);
+        search_bar_text_view = (MultiAutoCompleteTextView) search_container.findViewById(R.id.search_bar_text);
+
+
+        imageView.setImageDrawable(drawerArrowDrawable);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (search_bar_text_view.getText().length() > 0) {
+                    search_bar_text_view.setText("");
+                } else if (drawerArrowDrawable.getProgress() != 0){
+                    playDrawerToggleAnim(drawerArrowDrawable);
+                    // Reference: http://stackoverflow.com/questions/5056734/android-force-edittext-to-remove-focus/16477251#16477251
+                    search_bar_text_view.clearFocus();
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(search_bar_text_view.getWindowToken(), 0);
+                } else {
+                    drawerLayout.openDrawer(GravityCompat.START);
+                }
+
+
+
+
+
+            }
+        });
+
+
+
+
+        search_bar_text_view.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                Log.d(TAG, "onQueryTextChange... ");
+
+                String newText = "%" + s.toString().toLowerCase() + "%";
+
+
+
+//                ((CardsListFragment)((ViewPagerAdapter)viewPager.getAdapter()).getCachedItem(0)).setFilter(" and lower(name) like ?", new String[] {newText});
+//                ((CardsListFragment)((ViewPagerAdapter)viewPager.getAdapter()).getCachedItem(1)).setFilter(" and lower(name) like ?", new String[] {newText});
+
+
+//                for (FragmentFilterable fragment:
+//                     fragmentsToFilter) {
+//
+//                    fragment.setFilter(" and lower(name) like ?", new String[] {newText});
+//                }
+
+                for (CardsListFragment fragment:
+                        fragmentsToFilter2) {
+
+                    //fragment.setFilter(" and lower(name) like ?", new String[] {newText});
+
+                    Log.d(TAG, "onQueryTextChange: Thread Id: " + Thread.currentThread().getId());
+                    fragment.getCardsAdapter().getFilter().filter(" and lower(name) like '" + newText + "'");
+                }
+
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+        search_bar_text_view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (hasFocus) {
+                    playDrawerToggleAnim(drawerArrowDrawable);
+                }
+
+            }
+        });
+    }
+
     private void toggleSearchView() {
-        playDrawerToggleAnim((DrawerArrowDrawable)toolbar.getNavigationIcon());
+        //playDrawerToggleAnim((DrawerArrowDrawable)toolbar.getNavigationIcon());
 
         if (searchShown) {
             getSupportActionBar().setDisplayShowTitleEnabled(true);
+            toolbar.removeView(search_container);
 
         } else {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
+            toolbar.addView(search_container);
         }
 
         searchShown = !searchShown;
@@ -240,22 +347,22 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-
-
-        // Sets searchable configuration defined in searchable.xml for this SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
-
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
-
-            setupSearchView(searchView);
-
-        }
+//        getMenuInflater().inflate(R.menu.main, menu);
+//
+//
+//        // Sets searchable configuration defined in searchable.xml for this SearchView
+//        SearchManager searchManager =
+//                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//
+//        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+//
+//        if (searchView != null) {
+//            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//
+//
+//            setupSearchView(searchView);
+//
+//        }
 
 
         return true;
