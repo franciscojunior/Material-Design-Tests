@@ -109,6 +109,11 @@ public class MainActivity extends AppCompatActivity
                 appbar.setExpanded(true);
                 search_bar_text_view.requestFocus();
 
+                // Reference: http://stackoverflow.com/questions/2403632/android-show-soft-keyboard-automatically-when-focus-is-on-an-edittext
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(search_bar_text_view, InputMethodManager.SHOW_IMPLICIT);
+
+
                 //toggleSearchView();
 
 
