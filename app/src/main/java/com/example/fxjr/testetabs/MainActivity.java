@@ -35,6 +35,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AutoCompleteTextView;
 import android.widget.MultiAutoCompleteTextView;
@@ -161,6 +162,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+//        search_cards.setCompoundDrawables(drawerArrowDrawable, null, null, null);
+
 
 
 
@@ -168,7 +171,8 @@ public class MainActivity extends AppCompatActivity
 
 
     private void toggleSearchView() {
-        playDrawerToggleAnim((DrawerArrowDrawable)toolbar.getNavigationIcon());
+//        playDrawerToggleAnim((DrawerArrowDrawable)toolbar.getNavigationIcon());
+        playDrawerToggleAnim(drawerArrowDrawable);
 
         if (search_cards.isShown()) {
             toolbar.removeView(search_cards);
@@ -180,6 +184,8 @@ public class MainActivity extends AppCompatActivity
             toolbar.addView(search_cards);
 
             search_cards.requestFocus();
+
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         }
 
