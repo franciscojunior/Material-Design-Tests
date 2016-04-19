@@ -33,6 +33,7 @@ import android.view.ViewAnimationUtils;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity
 
     private boolean searchShown = false;
     private MultiAutoCompleteTextView search_bar_text_view;
+    private ArrayAdapter<String> adapterLibrary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,9 +166,30 @@ public class MainActivity extends AppCompatActivity
 
         setupSearchContainter(search_container);
 
-
-
         toolbar.addView(search_container);
+
+
+        AppBarLayout appbar = (AppBarLayout) findViewById(R.id.appbar);
+        appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                //Log.d(TAG, "onOffsetChanged: " + verticalOffset);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+
+                    if (verticalOffset == 0) {
+                        tabLayout.setAlpha(1);
+                    }
+                    else {
+                        verticalOffset = Math.min(100, Math.abs(verticalOffset));
+                        tabLayout.setAlpha((100 - verticalOffset)/100f);
+                    }
+                }
+
+            }
+        });
+
+
 
     }
 
@@ -258,6 +281,13 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+//        ArrayAdapter<String> adapterClans =   new ArrayAdapter<String>(this,
+//                android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.clans));
+//
+//        search_bar_text_view.setAdapter(adapterClans);
+//        search_bar_text_view.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
     }
 
     private void toggleSearchView() {
