@@ -6,11 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="drawerArrowStyle">@style/MainDrawerStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -21,4 +23,10 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <!--Reference: http://stackoverflow.com/questions/27840204/drawerarrowstyle-with-windowactionbaroverlay-color-in-toolbar-->
+    <style name="MainDrawerStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="drawableSize">20dp</item>
+        <item name="gapBetweenBars">3dp</item>
+        <item name="color">@android:color/black</item>
+    </style>
 </resources>
