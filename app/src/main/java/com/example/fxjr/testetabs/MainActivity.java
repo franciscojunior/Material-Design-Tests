@@ -170,19 +170,23 @@ public class MainActivity extends AppCompatActivity
 
 
         AppBarLayout appbar = (AppBarLayout) findViewById(R.id.appbar);
+
         appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                //Log.d(TAG, "onOffsetChanged: " + verticalOffset);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    float appbarHeight = appBarLayout.getHeight();
+
+//                    Log.d(TAG, "onOffsetChanged: " + appBarLayout.getHeight());
+//
+//                    Log.d(TAG, "onOffsetChanged: " + verticalOffset);
 
                     if (verticalOffset == 0) {
                         tabLayout.setAlpha(1);
                     }
                     else {
-                        verticalOffset = Math.min(100, Math.abs(verticalOffset));
-                        tabLayout.setAlpha((100 - verticalOffset)/100f);
+                        tabLayout.setAlpha((appbarHeight + verticalOffset)/appbarHeight);
                     }
                 }
 
