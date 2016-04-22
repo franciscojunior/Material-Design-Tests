@@ -204,6 +204,7 @@ public class MainActivity extends AppCompatActivity
         final ImageView imageViewLeftAction = (ImageView) search_container.findViewById(R.id.left_action);
         search_bar_text_view = (MultiAutoCompleteTextView) search_container.findViewById(R.id.search_bar_text);
         final ImageView imageViewCloseButton = (ImageView) search_container.findViewById(R.id.clear_btn);
+        final ImageView imageViewSearchSettingsButton = (ImageView) search_container.findViewById(R.id.search_settings);
 
 
         imageViewLeftAction.setImageDrawable(drawerArrowDrawable);
@@ -275,9 +276,10 @@ public class MainActivity extends AppCompatActivity
             public void afterTextChanged(Editable s) {
 
                 if (s.length() > 0) {
-                    imageViewCloseButton.setImageResource(R.drawable.ic_close);
+                    //imageViewCloseButton.setImageResource(R.drawable.ic_close);
+                    imageViewCloseButton.setVisibility(View.VISIBLE);
                 } else {
-                    imageViewCloseButton.setImageResource(0);
+                    imageViewCloseButton.setVisibility(View.GONE);
                 }
 
 
@@ -290,6 +292,15 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 search_bar_text_view.setText("");
+            }
+        });
+
+
+        imageViewSearchSettingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, "Show search filter settings", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
