@@ -25,8 +25,9 @@
 
     <!--Reference: http://stackoverflow.com/questions/27840204/drawerarrowstyle-with-windowactionbaroverlay-color-in-toolbar-->
     <style name="MainDrawerStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="barLength">16dp</item>
         <item name="drawableSize">20dp</item>
-        <item name="gapBetweenBars">3dp</item>
+        <!--<item name="gapBetweenBars">3dp</item>-->
         <!--<item name="color">@android:color/black</item>-->
     </style>
 </resources>
