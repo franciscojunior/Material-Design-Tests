@@ -40,6 +40,8 @@
             android:layout_height="wrap_content"
             app:tabTextAppearance="@style/CustomTabText"
             app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabIndicatorHeight="5dp"
             app:layout_scrollFlags="scroll|enterAlways|snap"/>
 
 
