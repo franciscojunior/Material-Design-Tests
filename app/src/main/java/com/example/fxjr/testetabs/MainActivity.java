@@ -277,9 +277,11 @@ public class MainActivity extends AppCompatActivity
 
                 if (s.length() > 0) {
                     //imageViewCloseButton.setImageResource(R.drawable.ic_close);
+                    imageViewSearchSettingsButton.setVisibility(View.VISIBLE);
                     imageViewCloseButton.setVisibility(View.VISIBLE);
                 } else {
                     imageViewCloseButton.setVisibility(View.GONE);
+                    imageViewSearchSettingsButton.setVisibility(View.GONE);
                 }
 
 
