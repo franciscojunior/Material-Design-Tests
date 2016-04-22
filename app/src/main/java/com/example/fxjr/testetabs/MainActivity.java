@@ -201,12 +201,13 @@ public class MainActivity extends AppCompatActivity
 
     private void setupSearchContainter(FrameLayout search_container) {
 
-        final ImageView imageView = (ImageView) search_container.findViewById(R.id.left_action);
+        final ImageView imageViewLeftAction = (ImageView) search_container.findViewById(R.id.left_action);
         search_bar_text_view = (MultiAutoCompleteTextView) search_container.findViewById(R.id.search_bar_text);
+        final ImageView imageViewCloseButton = (ImageView) search_container.findViewById(R.id.clear_btn);
 
 
-        imageView.setImageDrawable(drawerArrowDrawable);
-        imageView.setOnClickListener(new View.OnClickListener() {
+        imageViewLeftAction.setImageDrawable(drawerArrowDrawable);
+        imageViewLeftAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -273,9 +274,24 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s) {
 
+                if (s.length() > 0) {
+                    imageViewCloseButton.setImageResource(R.drawable.ic_close);
+                } else {
+                    imageViewCloseButton.setImageResource(0);
+                }
+
+
+
             }
         });
 
+
+        imageViewCloseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search_bar_text_view.setText("");
+            }
+        });
 
         search_bar_text_view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -325,7 +341,7 @@ public class MainActivity extends AppCompatActivity
             public boolean onQueryTextChange(String newText) {
 
 
-                Log.d(TAG, "onQueryTextChange... ");
+//                Log.d(TAG, "onQueryTextChange... ");
 
                 newText = "%" + newText.toLowerCase() + "%";
 
@@ -378,6 +394,13 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else if (drawerArrowDrawable.getProgress() != 0){
+            playDrawerToggleAnim(drawerArrowDrawable);
+            // Reference: http://stackoverflow.com/questions/5056734/android-force-edittext-to-remove-focus/16477251#16477251
+            search_bar_text_view.clearFocus();
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(search_bar_text_view.getWindowToken(), 0);
+
         } else if (searchShown) {
             toggleSearchView();
         } else {
