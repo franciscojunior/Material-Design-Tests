@@ -51,6 +51,7 @@
 
     <include layout="@layout/content_main" />
 
+    <!--Reference: http://stackoverflow.com/questions/32038332/using-google-design-library-how-to-hide-fab-button-on-scroll-down/32039007#32039007-->
     <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:id="@+id/fab"-->
         <!--android:layout_width="wrap_content"-->
