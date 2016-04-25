@@ -69,6 +69,9 @@
                     android:inputType="textNoSuggestions"
                     android:imeOptions="actionSearch" />
 
+
+
+
             </FrameLayout>
 
 
@@ -82,7 +85,6 @@
                 android:padding="@dimen/square_button_padding"
                 android:clickable="true"
                 android:src="@drawable/ic_tune"
-                android:visibility="gone"
 
 
                 />
