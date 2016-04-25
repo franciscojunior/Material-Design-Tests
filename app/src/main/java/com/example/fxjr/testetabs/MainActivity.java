@@ -39,6 +39,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity
     private DrawerArrowDrawable drawerArrowDrawable;
 
     private boolean searchShown = false;
-    private MultiAutoCompleteTextView search_bar_text_view;
+    private TextView search_bar_text_view;
     private ArrayAdapter<String> adapterLibrary;
 
     @Override
@@ -179,16 +180,24 @@ public class MainActivity extends AppCompatActivity
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                     float appbarHeight = appBarLayout.getHeight();
+                    float tabbarHeight = tabLayout.getHeight();
 
-//                    Log.d(TAG, "onOffsetChanged: " + appBarLayout.getHeight());
+
+//                    Log.d(TAG, "onOffsetChanged: tabbar" + tabbarHeight);
+//
+//                    Log.d(TAG, "onOffsetChanged: appbar" + appbarHeight);
 //
 //                    Log.d(TAG, "onOffsetChanged: " + verticalOffset);
 
                     if (verticalOffset == 0) {
                         tabLayout.setAlpha(1);
+                        fab.show();
                     }
-                    else {
-                        tabLayout.setAlpha((appbarHeight + verticalOffset)/appbarHeight);
+                    else if (appbarHeight + verticalOffset <= tabbarHeight ){
+                        tabLayout.setAlpha((appbarHeight + verticalOffset)/tabbarHeight);
+                        fab.hide();
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(search_bar_text_view.getWindowToken(), 0);
                     }
                 }
 
@@ -202,7 +211,7 @@ public class MainActivity extends AppCompatActivity
     private void setupSearchContainter(FrameLayout search_container) {
 
         final ImageView imageViewLeftAction = (ImageView) search_container.findViewById(R.id.left_action);
-        search_bar_text_view = (MultiAutoCompleteTextView) search_container.findViewById(R.id.search_bar_text);
+        search_bar_text_view = (TextView) search_container.findViewById(R.id.search_bar_text);
         final ImageView imageViewCloseButton = (ImageView) search_container.findViewById(R.id.clear_btn);
         final ImageView imageViewSearchSettingsButton = (ImageView) search_container.findViewById(R.id.search_settings);
 
@@ -276,12 +285,10 @@ public class MainActivity extends AppCompatActivity
             public void afterTextChanged(Editable s) {
 
                 if (s.length() > 0) {
-                    //imageViewCloseButton.setImageResource(R.drawable.ic_close);
-                    imageViewSearchSettingsButton.setVisibility(View.VISIBLE);
                     imageViewCloseButton.setVisibility(View.VISIBLE);
                 } else {
                     imageViewCloseButton.setVisibility(View.GONE);
-                    imageViewSearchSettingsButton.setVisibility(View.GONE);
+
                 }
 
 
