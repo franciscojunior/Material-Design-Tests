@@ -12,7 +12,7 @@ import android.widget.TextView;
 /**
  * Created by fxjr on 17/03/16.
  */
-public class CryptCardsListViewAdapter extends CursorRecyclerViewAdapter<CryptCardsListViewAdapter.ViewHolder> {
+public class CryptCardsListViewAdapter extends CursorRecyclerAdapter<CryptCardsListViewAdapter.ViewHolder> {
 
 
 
@@ -24,8 +24,12 @@ public class CryptCardsListViewAdapter extends CursorRecyclerViewAdapter<CryptCa
         }
     };
 
+//    public CryptCardsListViewAdapter(Context context, Cursor cursor) {
+//        super(context, cursor);
+//    }
+
     public CryptCardsListViewAdapter(Context context, Cursor cursor) {
-        super(context, cursor);
+        super(cursor);
     }
 
 
@@ -41,17 +45,28 @@ public class CryptCardsListViewAdapter extends CursorRecyclerViewAdapter<CryptCa
         return vh;
     }
 
-    @Override
-    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
+//    @Override
+//    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
+//
+//
+//        viewHolder.txtInitialCardText.setText(cursor.getString(4));
+//        viewHolder.txtCardName.setText(cursor.getString(1));
+//        viewHolder.txtCardCost.setText(cursor.getString(3));
+//        viewHolder.txtCardExtraInformation.setText(cursor.getString(2));
+//        viewHolder.txtCardGroup.setText(cursor.getString(5));
+//
+//
+//
+//    }
 
+    @Override
+    public void onBindViewHolderCursor(ViewHolder viewHolder, Cursor cursor) {
 
         viewHolder.txtInitialCardText.setText(cursor.getString(4));
         viewHolder.txtCardName.setText(cursor.getString(1));
         viewHolder.txtCardCost.setText(cursor.getString(3));
         viewHolder.txtCardExtraInformation.setText(cursor.getString(2));
         viewHolder.txtCardGroup.setText(cursor.getString(5));
-
-
 
     }
 

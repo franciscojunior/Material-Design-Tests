@@ -12,11 +12,11 @@ import android.widget.TextView;
 /**
  * Created by fxjr on 17/03/16.
  */
-public class LibraryCardsListViewAdapter extends CursorRecyclerViewAdapter<LibraryCardsListViewAdapter.ViewHolder> {
+public class LibraryCardsListViewAdapter extends CursorRecyclerAdapter<LibraryCardsListViewAdapter.ViewHolder> {
 
 
     public LibraryCardsListViewAdapter(Context context, Cursor cursor) {
-        super(context, cursor);
+        super(cursor);
     }
 
 
@@ -33,7 +33,7 @@ public class LibraryCardsListViewAdapter extends CursorRecyclerViewAdapter<Libra
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
+    public void onBindViewHolderCursor(ViewHolder viewHolder, Cursor cursor) {
 
 
         viewHolder.txtCardType.setText(cursor.getString(2));

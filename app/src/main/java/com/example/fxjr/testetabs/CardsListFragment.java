@@ -2,7 +2,9 @@ package com.example.fxjr.testetabs;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,11 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FilterQueryProvider;
 
 /**
  * Created by fxjr on 17/03/16.
  */
-public class CardsListFragment extends Fragment{
+public class CardsListFragment extends Fragment implements MainActivity.FragmentFilterable{
 
     private final static String TAG = "CardsListFragment";
 
@@ -24,15 +27,19 @@ public class CardsListFragment extends Fragment{
     private String query;
 
 
-    public CursorRecyclerViewAdapter getCardsAdapter() {
+    public CursorRecyclerAdapter getCardsAdapter() {
         return cardsAdapter;
     }
 
-    private CursorRecyclerViewAdapter cardsAdapter;
+    private CursorRecyclerAdapter cardsAdapter;
+
+
+    private SQLiteDatabase db;
 
     public CardsListFragment() {
         Log.d(TAG, "CardsListFragment constructor " + this);
 
+        db = DatabaseHelper.getDatabase();
         //Thread.dumpStack();
 
     }
@@ -59,7 +66,6 @@ public class CardsListFragment extends Fragment{
 
         Log.d(TAG, "setFilter... cardsAdapter:" +  cardsAdapter);
 
-        SQLiteDatabase db = DatabaseHelper.getDatabase();
 
         Cursor c = db.rawQuery(query + filter, parameters);
 
@@ -69,9 +75,44 @@ public class CardsListFragment extends Fragment{
 
 
 
+
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+        cardType = getArguments().getInt("CardType");
+        query = getArguments().getString("ListQuery");
+
+//        SQLiteDatabase db = DatabaseHelper.getDatabase();
+//
+//        Cursor c = db.rawQuery(query, null);
+
+        if (cardType == 0)
+            cardsAdapter = new CryptCardsListViewAdapter(getContext(), null);
+        else
+            cardsAdapter = new LibraryCardsListViewAdapter(getContext(), null);
+
+
+        cardsAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+            private static final String TAG = "CardsListFragment";
+
+            @Override
+            public Cursor runQuery(CharSequence constraint) {
+                Log.d(TAG, "onQueryTextChange: Thread Id: " + Thread.currentThread().getId());
+                return db.rawQuery(query + constraint, null);
+
+            }
+
+        });
+
+
+        new QueryDatabaseOperation().execute(query);
+
+
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,20 +131,38 @@ public class CardsListFragment extends Fragment{
         Log.d(TAG, "CardsListFragment: " + this);
         // specify an adapter (see also next example)
 
-        cardType = getArguments().getInt("CardType");
-        query = getArguments().getString("ListQuery");
-
-        SQLiteDatabase db = DatabaseHelper.getDatabase();
-
-        Cursor c = db.rawQuery(query, null);
-
-        if (cardType == 0)
-            cardsAdapter = new CryptCardsListViewAdapter(getContext(), c);
-        else
-            cardsAdapter = new LibraryCardsListViewAdapter(getContext(), c);
-
         recyclerView.setAdapter(cardsAdapter);
 
         return recyclerView;
+    }
+
+
+    private class QueryDatabaseOperation extends AsyncTask<String, Void, Cursor> {
+
+        @Override
+        protected Cursor doInBackground(String... params) {
+
+
+            Cursor c = db.rawQuery(params[0], null);
+
+
+            return c;
+        }
+
+        @Override
+        protected void onPostExecute(Cursor result) {
+
+            Log.d(TAG, "onPostExecute... ");
+
+            if (result != null) {
+
+                cardsAdapter.changeCursor(result);
+            }
+            else {
+
+            }
+
+
+        }
     }
 }
