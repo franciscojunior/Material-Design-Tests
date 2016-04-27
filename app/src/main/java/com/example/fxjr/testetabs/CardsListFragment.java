@@ -17,7 +17,7 @@ import android.widget.FilterQueryProvider;
 /**
  * Created by fxjr on 17/03/16.
  */
-public class CardsListFragment extends Fragment implements MainActivity.FragmentFilterable{
+public class CardsListFragment extends Fragment {
 
     private final static String TAG = "CardsListFragment";
 
@@ -54,28 +54,6 @@ public class CardsListFragment extends Fragment implements MainActivity.Fragment
         f.setArguments(args);
 
         return f;
-    }
-
-
-    public void setFilter(String filter, String[] parameters) {
-        this.filter = filter;
-
-        Log.d(TAG, "CardsListFragment: " + this);
-
-        Log.d(TAG, "setFilter... query:" +  query);
-
-        Log.d(TAG, "setFilter... cardsAdapter:" +  cardsAdapter);
-
-
-        Cursor c = db.rawQuery(query + filter, parameters);
-
-        cardsAdapter.changeCursor(c);
-
-
-
-
-
-
     }
 
     @Override
@@ -157,9 +135,6 @@ public class CardsListFragment extends Fragment implements MainActivity.Fragment
             if (result != null) {
 
                 cardsAdapter.changeCursor(result);
-            }
-            else {
-
             }
 
 
