@@ -30,4 +30,12 @@
         <!--<item name="gapBetweenBars">3dp</item>-->
         <!--<item name="color">@android:color/black</item>-->
     </style>
+
+
+    <!--Reference: http://stackoverflow.com/questions/5049852/android-drawing-separator-divider-line-in-layout/14533085#14533085-->
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@android:color/black</item>
+    </style>
 </resources>
