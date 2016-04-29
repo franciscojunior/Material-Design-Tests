@@ -40,7 +40,7 @@
                     android:id="@+id/left_action"
                     android:layout_width="@dimen/square_button_size"
                     android:layout_height="@dimen/square_button_size"
-                    android:padding="@dimen/square_button_padding"
+                    android:padding="14dp"
                     android:clickable="true"
                     />
 
@@ -67,7 +67,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:inputType="textNoSuggestions"
-                    android:imeOptions="actionSearch" />
+                    android:imeOptions="actionDone" />
 
 
 
