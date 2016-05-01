@@ -42,6 +42,7 @@
                     android:layout_height="@dimen/square_button_size"
                     android:padding="14dp"
                     android:clickable="true"
+                    android:background="@drawable/oval_btn_selector"
                     />
 
             </FrameLayout>
@@ -85,6 +86,7 @@
                 android:padding="@dimen/square_button_padding"
                 android:clickable="true"
                 android:src="@drawable/ic_tune"
+                android:background="@drawable/oval_btn_selector"
 
 
                 />
@@ -101,6 +103,7 @@
                 android:layout_toLeftOf="@id/search_settings"
                 android:layout_toStartOf="@id/search_settings"
                 android:visibility="gone"
+                android:background="@drawable/oval_btn_selector"
                 />
 
 
