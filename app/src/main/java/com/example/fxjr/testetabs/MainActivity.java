@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SearchSettingsFragment.SearchSettingsHandler {
 
     private final static String TAG = "MainActivity";
 
@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity
 
     private boolean searchShown = false;
     private TextView search_bar_text_view;
+
+    String filter = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,7 +206,7 @@ public class MainActivity extends AppCompatActivity
                         fragmentsToFilter2) {
 
                     Log.d(TAG, "onQueryTextChange: Thread Id: " + Thread.currentThread().getId());
-                    fragment.getCardsAdapter().getFilter().filter(" and lower(name) like '" + newText + "'");
+                    fragment.getCardsAdapter().getFilter().filter(" and lower(name) like '" + newText + "'" + filter);
                 }
 
 
@@ -238,8 +240,14 @@ public class MainActivity extends AppCompatActivity
         imageViewSearchSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "Show search filter settings", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(v, "Show search filter settings", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+
+
+                SearchSettingsFragment searchSettingsFragment = SearchSettingsFragment.newInstance();
+                searchSettingsFragment.show(getSupportFragmentManager(), "search_settings_fragment");
+
+
             }
         });
 
@@ -383,7 +391,24 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-
     }
 
+    @Override
+    public void filter(String filter) {
+
+        if (filter.length() > 0)
+            this.filter = " and _Group = 1";
+        else
+            this.filter = "";
+
+
+        for (CardsListFragment fragment:
+                fragmentsToFilter2) {
+
+            Log.d(TAG, "onQueryTextChange: Thread Id: " + Thread.currentThread().getId());
+
+            fragment.getCardsAdapter().getFilter().filter(" and lower(name) like '" + search_bar_text_view.getText() + "'" + filter);
+        }
+
+    }
 }
