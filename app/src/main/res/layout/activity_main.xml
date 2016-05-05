@@ -28,7 +28,16 @@
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:fitsSystemWindows="false"
-        app:headerLayout="@layout/search_filter_dialog"
-         />
+        >
+
+        <!--Reference: http://stackoverflow.com/questions/30543605/how-to-add-footer-to-navigationview-android-support-design-library-->
+        <include
+            layout="@layout/search_filter_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.design.widget.NavigationView>
+
+
 
 </android.support.v4.widget.DrawerLayout>
