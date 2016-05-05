@@ -244,8 +244,13 @@ public class MainActivity extends AppCompatActivity
 //                        .setAction("Action", null).show();
 
 
-                SearchSettingsFragment searchSettingsFragment = SearchSettingsFragment.newInstance();
-                searchSettingsFragment.show(getSupportFragmentManager(), "search_settings_fragment");
+//                SearchSettingsFragment searchSettingsFragment = SearchSettingsFragment.newInstance();
+//                searchSettingsFragment.show(getSupportFragmentManager(), "search_settings_fragment");
+
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+                drawer.openDrawer(GravityCompat.END);
+
 
 
             }
