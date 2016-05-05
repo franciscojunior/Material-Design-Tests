@@ -114,8 +114,12 @@ public class CardsListFragment extends Fragment {
         return recyclerView;
     }
 
+    public int getCardType() {
+        return cardType;
+    }
 
-    private class QueryDatabaseOperation extends AsyncTask<String, Void, Cursor> {
+
+        private class QueryDatabaseOperation extends AsyncTask<String, Void, Cursor> {
 
         @Override
         protected Cursor doInBackground(String... params) {
