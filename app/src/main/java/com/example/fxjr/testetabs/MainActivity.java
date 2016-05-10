@@ -25,6 +25,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -32,6 +33,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -149,6 +151,46 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+
+        setupSearchFilterNavigation();
+
+
+    }
+
+    private void setupSearchFilterNavigation() {
+        SeekBar seekBarMin = (SeekBar) findViewById(R.id.seekBarCapacityMin);
+        SeekBar seekBarMax = (SeekBar) findViewById(R.id.seekBarCapacityMax);
+
+//        Reference: http://stackoverflow.com/questions/18400910/seekbar-in-a-navigationdrawer
+
+        View.OnTouchListener seekBarDisallowDrawerInterceptTouchEvent = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                int action = event.getAction();
+                switch (action)
+                {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow Drawer to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow Drawer to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle seekbar touch events.
+                v.onTouchEvent(event);
+                return true;
+
+            }
+        };
+
+        seekBarMin.setOnTouchListener(seekBarDisallowDrawerInterceptTouchEvent);
+        seekBarMax.setOnTouchListener(seekBarDisallowDrawerInterceptTouchEvent);
 
 
 
