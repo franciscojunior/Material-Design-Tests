@@ -1,131 +1,415 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_height="0dp"
+        app:layout_heightPercent="10%"
         android:text="Filters"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="51dp"
-        android:text="Groups:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView5"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp">
 
-        <CheckBox
-            android:id="@+id/checkBox1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:text="1" />
-
-        <CheckBox
-            android:id="@+id/checkBox2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:text="2" />
-
-        <CheckBox
-            android:id="@+id/checkBox3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:text="3" />
-
-        <CheckBox
-            android:id="@+id/checkBox4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:text="4" />
-
-        <CheckBox
-            android:id="@+id/checkBox5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:text="5" />
-
-        <CheckBox
-            android:id="@+id/checkBox6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:text="6" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/linearLayout"
-        android:text="Disciplines:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_below="@+id/textViewTitle"
+        app:layout_heightPercent="85%">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:text="Groups:"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/relativeLayoutGroups"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <CheckBox
+                    android:id="@+id/checkBox1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="16%"
+                    android:checked="false"
+                    android:text="1" />
+
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="16%"
+                    android:layout_toRightOf="@id/checkBox1"
+                    android:checked="false"
+                    android:text="2" />
+
+                <CheckBox
+                    android:id="@+id/checkBox3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="16%"
+                    android:layout_toRightOf="@id/checkBox2"
+                    android:checked="false"
+                    android:text="3" />
+
+                <CheckBox
+                    android:id="@+id/checkBox4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="16%"
+                    android:layout_toRightOf="@id/checkBox3"
+                    android:checked="false"
+                    android:text="4" />
+
+                <CheckBox
+                    android:id="@+id/checkBox5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="16%"
+                    android:layout_toRightOf="@id/checkBox4"
+                    android:checked="false"
+                    android:text="5" />
+
+                <CheckBox
+                    android:id="@+id/checkBox6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="16%"
+                    android:layout_toRightOf="@id/checkBox5"
+                    android:checked="false"
+                    android:text="6" />
+            </android.support.percent.PercentRelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                style="@style/NavigationViewDivider"/>
+
+
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/Disciplines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="11dp"
+                >
+
+
+                <!--Reference: http://stackoverflow.com/questions/7989014/align-text-left-checkbox-right/7989088#7989088-->
+                <TextView
+                    android:id="@+id/textDisciplines"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="70%"
+                    android:text="Disciplines:"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/textDisciplinesBasic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Basic"
+                    app:layout_widthPercent="15%"
+                    android:layout_toRightOf="@id/textDisciplines"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:id="@+id/textDisciplinesAdvanced"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="15%"
+                    android:text="Adv"
+                    android:layout_toRightOf="@id/textDisciplinesBasic"
+                    android:layout_centerVertical="true"
+                    />
+            </android.support.percent.PercentRelativeLayout>
+
+
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/aboDisciplines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                >
+
+
+                <!--Reference: http://stackoverflow.com/questions/7989014/align-text-left-checkbox-right/7989088#7989088-->
+                <TextView
+                    android:id="@+id/textViewDisciplineABO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="70%"
+                    android:text="ABO"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_centerVertical="true" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDisciplineBasicABO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="15%"
+                    android:layout_toRightOf="@id/textViewDisciplineABO"
+                    android:checked="false" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDisciplineAdvancedABO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="15%"
+                    android:layout_toRightOf="@id/checkBoxDisciplineBasicABO"
+                    android:checked="false" />
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/aniDisciplines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                >
+
+
+                <!--Reference: http://stackoverflow.com/questions/7989014/align-text-left-checkbox-right/7989088#7989088-->
+                <TextView
+                    android:id="@+id/textViewDisciplineANI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="70%"
+                    android:text="ANI"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_centerVertical="true" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDisciplineBasicANI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="15%"
+                    android:layout_toRightOf="@id/textViewDisciplineANI"
+                    android:checked="false" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDisciplineAdvancedANI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="15%"
+                    android:layout_toRightOf="@id/checkBoxDisciplineBasicANI"
+                    android:checked="false" />
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/ausDisciplines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                >
+
+
+                <!--Reference: http://stackoverflow.com/questions/7989014/align-text-left-checkbox-right/7989088#7989088-->
+                <TextView
+                    android:id="@+id/textViewDisciplineAUS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="70%"
+                    android:text="AUS"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_centerVertical="true" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDisciplineBasicAUS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="15%"
+                    android:layout_toRightOf="@id/textViewDisciplineAUS"
+                    android:checked="false" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDisciplineAdvancedAUS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="15%"
+                    android:layout_toRightOf="@id/checkBoxDisciplineBasicAUS"
+                    android:checked="false" />
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/celDisciplines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                >
+
+
+                <!--Reference: http://stackoverflow.com/questions/7989014/align-text-left-checkbox-right/7989088#7989088-->
+                <TextView
+                    android:id="@+id/textViewDisciplineCEL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="70%"
+                    android:text="CEL"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_centerVertical="true" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDisciplineBasicCEL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="15%"
+                    android:layout_toRightOf="@id/textViewDisciplineCEL"
+                    android:checked="false" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDisciplineAdvancedCEL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="15%"
+                    android:layout_toRightOf="@id/checkBoxDisciplineBasicCEL"
+                    android:checked="false" />
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/chiDisciplines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                >
+
+
+                <!--Reference: http://stackoverflow.com/questions/7989014/align-text-left-checkbox-right/7989088#7989088-->
+                <TextView
+                    android:id="@+id/textViewDisciplineCHI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="70%"
+                    android:text="CHI"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_centerVertical="true" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDisciplineBasicCHI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="15%"
+                    android:layout_toRightOf="@id/textViewDisciplineCHI"
+                    android:checked="false" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDisciplineAdvancedCHI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="15%"
+                    android:layout_toRightOf="@id/checkBoxDisciplineBasicCHI"
+                    android:checked="false" />
+            </android.support.percent.PercentRelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                style="@style/NavigationViewDivider"
+                android:layout_marginTop="11dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewewe55"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:text="Capacity:"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout121"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="min"/>
+
+                    <SeekBar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/seekBarCapacityMin"
+
+                        android:max="11"
+                        android:indeterminate="false" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="max"/>
+
+                    <SeekBar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/seekBarCapacityMax"
+
+                        android:max="11"
+                        android:indeterminate="false" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout2"
-        android:gravity="bottom"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        app:layout_heightPercent="15%"
+        android:gravity="bottom"
+        android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save filter"
             android:id="@+id/button"
-            android:layout_gravity="bottom"
-            android:layout_weight="1" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_widthPercent="50%"
+            android:text="Save filter"
+            style="@style/Base.Widget.AppCompat.Button.Colored"/>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Clear filter"
             android:id="@+id/button2"
-            android:layout_weight="1" />
-    </LinearLayout>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_widthPercent="50%"
+            android:layout_toRightOf="@id/button"
+            android:text="Clear filter"
+            style="@style/Base.Widget.AppCompat.Button.Colored"/>
+    </android.support.percent.PercentRelativeLayout>
 
-
-</RelativeLayout>
+</android.support.percent.PercentRelativeLayout>
