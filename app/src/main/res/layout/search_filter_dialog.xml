@@ -12,7 +12,7 @@
         android:text="Filters"
         android:layout_centerHorizontal="true"
 
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -32,7 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="11dp"
                 android:text="Groups:"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:layout_marginLeft="11dp" />
 
 
             <android.support.percent.PercentRelativeLayout
@@ -102,12 +103,10 @@
 
 
             <android.support.percent.PercentRelativeLayout
-                android:id="@+id/Disciplines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:layout_marginTop="11dp"
+                android:layout_marginLeft="11dp"
                 >
 
 
@@ -118,8 +117,9 @@
                     android:layout_height="wrap_content"
                     app:layout_widthPercent="70%"
                     android:text="Disciplines:"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:layout_centerVertical="true" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_centerVertical="true"
+                    />
 
                 <TextView
                     android:id="@+id/textDisciplinesBasic"
@@ -144,11 +144,9 @@
 
 
             <android.support.percent.PercentRelativeLayout
-                android:id="@+id/aboDisciplines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_marginLeft="11dp"
                 >
 
 
@@ -180,11 +178,9 @@
             </android.support.percent.PercentRelativeLayout>
 
             <android.support.percent.PercentRelativeLayout
-                android:id="@+id/aniDisciplines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_marginLeft="11dp"
                 >
 
 
@@ -216,11 +212,9 @@
             </android.support.percent.PercentRelativeLayout>
 
             <android.support.percent.PercentRelativeLayout
-                android:id="@+id/ausDisciplines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_marginLeft="11dp"
                 >
 
 
@@ -252,11 +246,9 @@
             </android.support.percent.PercentRelativeLayout>
 
             <android.support.percent.PercentRelativeLayout
-                android:id="@+id/celDisciplines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_marginLeft="11dp"
                 >
 
 
@@ -288,11 +280,9 @@
             </android.support.percent.PercentRelativeLayout>
 
             <android.support.percent.PercentRelativeLayout
-                android:id="@+id/chiDisciplines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_marginLeft="11dp"
                 >
 
 
@@ -323,6 +313,41 @@
                     android:checked="false" />
             </android.support.percent.PercentRelativeLayout>
 
+            <android.support.percent.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                >
+
+
+                <!--Reference: http://stackoverflow.com/questions/7989014/align-text-left-checkbox-right/7989088#7989088-->
+                <TextView
+                    android:id="@+id/textViewDisciplineXXX"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="70%"
+                    android:text="ABO"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_centerVertical="true" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDisciplineBasicXXX"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="15%"
+                    android:layout_toRightOf="@id/textViewDisciplineXXX"
+                    android:checked="false" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDisciplineAdvancedXXX"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="15%"
+                    android:layout_toRightOf="@id/checkBoxDisciplineBasicXXX"
+                    android:checked="false" />
+            </android.support.percent.PercentRelativeLayout>
+
+
             <View
                 android:layout_width="match_parent"
                 style="@style/NavigationViewDivider"
@@ -331,7 +356,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginLeft="11dp">
 
                 <TextView
                     android:id="@+id/textViewewe55"
@@ -339,7 +365,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="11dp"
                     android:text="Capacity:"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
 
                 <LinearLayout
@@ -375,6 +401,7 @@
 
                         android:max="11"
                         android:indeterminate="false" />
+
 
                 </LinearLayout>
 
