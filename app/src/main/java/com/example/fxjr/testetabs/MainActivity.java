@@ -1,6 +1,5 @@
 package com.example.fxjr.testetabs;
 
-import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
@@ -9,16 +8,13 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,10 +23,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -194,6 +188,106 @@ public class MainActivity extends AppCompatActivity
 
 
 
+
+        final View disciplinesHeader = findViewById(R.id.disciplinesHeader);
+        final View disciplinesLayout = findViewById(R.id.disciplinesLayout);
+
+        final ImageView imgDisciplinesLayoutArrow = (ImageView) findViewById(R.id.imgDisciplinesLayoutArrow);
+
+
+
+        disciplinesHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (disciplinesLayout.isShown()) {
+                    disciplinesLayout.setVisibility(View.GONE);
+                    imgDisciplinesLayoutArrow.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+                } else {
+
+                    imgDisciplinesLayoutArrow.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+
+
+//                    Reference: http://stackoverflow.com/questions/19765938/show-and-hide-a-view-with-a-slide-up-down-animation
+                    // Prepare the View for the animation
+                    disciplinesLayout.setVisibility(View.VISIBLE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+                        disciplinesLayout.setAlpha(0.0f);
+
+                        // Start the animation
+                        disciplinesLayout.animate()
+                                .alpha(1.0f);
+                    }
+                }
+
+            }
+        });
+
+
+        final View clansHeader = findViewById(R.id.clansHeader);
+        final View clansLayout = findViewById(R.id.clansLayout);
+
+        final ImageView imgClansLayoutArrow = (ImageView) findViewById(R.id.imgClansLayoutArrow);
+
+
+
+        clansHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clansLayout.isShown()) {
+                    clansLayout.setVisibility(View.GONE);
+                    imgClansLayoutArrow.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+                } else {
+
+                    imgClansLayoutArrow.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+
+
+//                    Reference: http://stackoverflow.com/questions/19765938/show-and-hide-a-view-with-a-slide-up-down-animation
+                    // Prepare the View for the animation
+                    clansLayout.setVisibility(View.VISIBLE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+                        clansLayout.setAlpha(0.0f);
+
+                        // Start the animation
+                        clansLayout.animate()
+                                .alpha(1.0f);
+                    }
+                }
+
+            }
+        });
+
+
+        // Set filters navigationview contents based on current selected tab.
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                final View disciplinesHeader = findViewById(R.id.disciplinesHeader);
+                if (tab.getPosition() == 1) {
+                    disciplinesHeader.setVisibility(View.GONE);
+
+                } else {
+                    disciplinesHeader.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+
+
     }
 
     private void setupSearchContainter(FrameLayout search_container) {
@@ -286,12 +380,12 @@ public class MainActivity extends AppCompatActivity
 //                        .setAction("Action", null).show();
 
 
-//                SearchSettingsFragment searchSettingsFragment = SearchSettingsFragment.newInstance();
-//                searchSettingsFragment.show(getSupportFragmentManager(), "search_settings_fragment");
+                SearchSettingsFragment searchSettingsFragment = SearchSettingsFragment.newInstance();
+                searchSettingsFragment.show(getSupportFragmentManager(), "search_settings_fragment");
 
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-                drawer.openDrawer(GravityCompat.END);
+//                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//
+//                drawer.openDrawer(GravityCompat.END);
 
 
 
