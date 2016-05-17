@@ -4,11 +4,6 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
-    dexOptions {
-        dexInProcess true
-        maxProcessCount 1
-        threadCount 1
-    }
 
     defaultConfig {
         applicationId "com.example.fxjr.testetabs"
