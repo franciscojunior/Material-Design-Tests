@@ -34,9 +34,18 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
         if (dyConsumed > 0 && child.getVisibility() == View.VISIBLE) {
             // User scrolled down and the FAB is currently visible -> hide the FAB
             child.hide();
-        } else if (dyConsumed < 0 && child.getVisibility() != View.VISIBLE) {
-            // User scrolled up and the FAB is currently not visible -> show the FAB
-            child.show();
         }
+//        else if (dyConsumed < 0 && child.getVisibility() != View.VISIBLE) {
+//            // User scrolled up and the FAB is currently not visible -> show the FAB
+//            child.show();
+//        }
+    }
+
+    @Override
+    public void onStopNestedScroll(CoordinatorLayout coordinatorLayout, FloatingActionButton child, View target) {
+        super.onStopNestedScroll(coordinatorLayout, child, target);
+
+        if (child.getVisibility() != View.VISIBLE)
+            child.show();
     }
 }

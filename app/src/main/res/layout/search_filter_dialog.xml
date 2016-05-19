@@ -133,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/textDisciplines"
-                    android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:src="@drawable/ic_expand_more_black_24dp"
 
                     app:layout_widthPercent="15%" />
 
@@ -1083,7 +1083,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/textClans"
-                    android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:src="@drawable/ic_expand_more_black_24dp"
 
                     app:layout_widthPercent="15%" />
 
@@ -2321,6 +2321,390 @@
 
 
                 </android.support.percent.PercentRelativeLayout>
+
+
+            </LinearLayout>
+
+            <View
+                style="@style/NavigationViewDivider"
+                android:layout_width="match_parent"
+                android:layout_marginTop="11dp" />
+
+
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/cardTypesHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:layout_marginTop="11dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true">
+
+
+                <!--Reference: http://stackoverflow.com/questions/7989014/align-text-left-checkbox-right/7989088#7989088-->
+                <TextView
+                    android:id="@+id/textCardTypes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Card Types:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    app:layout_widthPercent="85%"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/imgCardTypesLayoutArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/textCardTypes"
+                    android:src="@drawable/ic_expand_more_black_24dp"
+
+                    app:layout_widthPercent="15%" />
+
+
+            </android.support.percent.PercentRelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/cardTypesLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+
+                >
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp">
+
+
+                    <TextView
+                        android:id="@+id/textCardTypesAction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Action"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        app:layout_widthPercent="85%" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCardTypesAction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/textCardTypesAction"
+                        android:checked="false"
+                        app:layout_widthPercent="15%" />
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp">
+
+
+                    <TextView
+                        android:id="@+id/textCardTypesActionModifier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Action Modifier"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        app:layout_widthPercent="85%" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCardTypesActionModifier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/textCardTypesActionModifier"
+                        android:checked="false"
+                        app:layout_widthPercent="15%" />
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp">
+
+
+                    <TextView
+                        android:id="@+id/textCardTypesAlly"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Ally"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        app:layout_widthPercent="85%" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCardTypesAlly"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/textCardTypesAlly"
+                        android:checked="false"
+                        app:layout_widthPercent="15%" />
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp">
+
+
+                    <TextView
+                        android:id="@+id/textCardTypesCombat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Combat"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        app:layout_widthPercent="85%" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCardTypesCombat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/textCardTypesCombat"
+                        android:checked="false"
+                        app:layout_widthPercent="15%" />
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp">
+
+
+                    <TextView
+                        android:id="@+id/textCardTypesConviction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Conviction"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        app:layout_widthPercent="85%" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCardTypesConviction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/textCardTypesConviction"
+                        android:checked="false"
+                        app:layout_widthPercent="15%" />
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp">
+
+
+                    <TextView
+                        android:id="@+id/textCardTypesEquipment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Equipment"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        app:layout_widthPercent="85%" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCardTypesEquipment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/textCardTypesEquipment"
+                        android:checked="false"
+                        app:layout_widthPercent="15%" />
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp">
+
+
+                    <TextView
+                        android:id="@+id/textCardTypesEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Event"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        app:layout_widthPercent="85%" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCardTypesEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/textCardTypesEvent"
+                        android:checked="false"
+                        app:layout_widthPercent="15%" />
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp">
+
+
+                    <TextView
+                        android:id="@+id/textCardTypesMaster"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Master"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        app:layout_widthPercent="85%" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCardTypesMaster"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/textCardTypesMaster"
+                        android:checked="false"
+                        app:layout_widthPercent="15%" />
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp">
+
+
+                    <TextView
+                        android:id="@+id/textCardTypesPoliticalAction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Political Action"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        app:layout_widthPercent="85%" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCardTypesPoliticalAction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/textCardTypesPoliticalAction"
+                        android:checked="false"
+                        app:layout_widthPercent="15%" />
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp">
+
+
+                    <TextView
+                        android:id="@+id/textCardTypesPower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Power"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        app:layout_widthPercent="85%" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCardTypesPower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/textCardTypesPower"
+                        android:checked="false"
+                        app:layout_widthPercent="15%" />
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp">
+
+
+                    <TextView
+                        android:id="@+id/textCardTypesReaction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Reaction"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        app:layout_widthPercent="85%" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCardTypesReaction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/textCardTypesReaction"
+                        android:checked="false"
+                        app:layout_widthPercent="15%" />
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground"
+                    >
+
+
+                    <TextView
+                        android:id="@+id/textCardTypesRetainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Retainer"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        app:layout_widthPercent="85%" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxCardTypesRetainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/textCardTypesRetainer"
+                        android:checked="false"
+                        app:layout_widthPercent="15%" />
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/checktextview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:gravity="center_vertical"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Checked text"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:checked="true"
+                    android:paddingLeft="11dp"
+                    android:paddingRight="16dp"
+                    />
 
 
 

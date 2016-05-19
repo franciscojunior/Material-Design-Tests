@@ -25,6 +25,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckedTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -133,11 +134,11 @@ public class MainActivity extends AppCompatActivity
 
                     if (verticalOffset == 0) {
                         tabLayout.setAlpha(1);
-                        fab.show();
+//                        fab.show();
                     }
                     else if (appbarHeight + verticalOffset <= tabbarHeight ){
                         tabLayout.setAlpha((appbarHeight + verticalOffset)/tabbarHeight);
-                        fab.hide();
+//                        fab.hide();
                         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(search_bar_text_view.getWindowToken(), 0);
                     }
@@ -195,32 +196,7 @@ public class MainActivity extends AppCompatActivity
         final ImageView imgDisciplinesLayoutArrow = (ImageView) findViewById(R.id.imgDisciplinesLayoutArrow);
 
 
-
-        disciplinesHeader.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (disciplinesLayout.isShown()) {
-                    disciplinesLayout.setVisibility(View.GONE);
-                    imgDisciplinesLayoutArrow.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-                } else {
-
-                    imgDisciplinesLayoutArrow.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
-
-
-//                    Reference: http://stackoverflow.com/questions/19765938/show-and-hide-a-view-with-a-slide-up-down-animation
-                    // Prepare the View for the animation
-                    disciplinesLayout.setVisibility(View.VISIBLE);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-                        disciplinesLayout.setAlpha(0.0f);
-
-                        // Start the animation
-                        disciplinesLayout.animate()
-                                .alpha(1.0f);
-                    }
-                }
-
-            }
-        });
+        setupExpandLayout(disciplinesHeader, disciplinesLayout, imgDisciplinesLayoutArrow);
 
 
         final View clansHeader = findViewById(R.id.clansHeader);
@@ -229,33 +205,24 @@ public class MainActivity extends AppCompatActivity
         final ImageView imgClansLayoutArrow = (ImageView) findViewById(R.id.imgClansLayoutArrow);
 
 
+        setupExpandLayout(clansHeader, clansLayout, imgClansLayoutArrow);
 
-        clansHeader.setOnClickListener(new View.OnClickListener() {
+
+        final View cardTypesHeader = findViewById(R.id.cardTypesHeader);
+        final View cardTypesLayout = findViewById(R.id.cardTypesLayout);
+
+        final ImageView imgCardTypesLayoutArrow = (ImageView) findViewById(R.id.imgCardTypesLayoutArrow);
+
+
+        setupExpandLayout(cardTypesHeader, cardTypesLayout, imgCardTypesLayoutArrow);
+
+        final CheckedTextView checkedTextView = (CheckedTextView)findViewById(R.id.checktextview);
+        checkedTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (clansLayout.isShown()) {
-                    clansLayout.setVisibility(View.GONE);
-                    imgClansLayoutArrow.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-                } else {
-
-                    imgClansLayoutArrow.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
-
-
-//                    Reference: http://stackoverflow.com/questions/19765938/show-and-hide-a-view-with-a-slide-up-down-animation
-                    // Prepare the View for the animation
-                    clansLayout.setVisibility(View.VISIBLE);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-                        clansLayout.setAlpha(0.0f);
-
-                        // Start the animation
-                        clansLayout.animate()
-                                .alpha(1.0f);
-                    }
-                }
-
+                checkedTextView.toggle();
             }
         });
-
 
         // Set filters navigationview contents based on current selected tab.
 
@@ -288,6 +255,34 @@ public class MainActivity extends AppCompatActivity
 
 
 
+    }
+
+    private void setupExpandLayout(View header, final View layoutToExpand, final ImageView imgArrow) {
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (layoutToExpand.isShown()) {
+                    layoutToExpand.setVisibility(View.GONE);
+                    imgArrow.setImageResource(R.drawable.ic_expand_more_black_24dp);
+                } else {
+
+                    imgArrow.setImageResource(R.drawable.ic_expand_less_black_24dp);
+
+
+//                    Reference: http://stackoverflow.com/questions/19765938/show-and-hide-a-view-with-a-slide-up-down-animation
+                    // Prepare the View for the animation
+                    layoutToExpand.setVisibility(View.VISIBLE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+                        layoutToExpand.setAlpha(0.0f);
+
+                        // Start the animation
+                        layoutToExpand.animate()
+                                .alpha(1.0f);
+                    }
+                }
+
+            }
+        });
     }
 
     private void setupSearchContainter(FrameLayout search_container) {
