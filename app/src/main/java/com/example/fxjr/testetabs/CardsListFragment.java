@@ -118,8 +118,23 @@ public class CardsListFragment extends Fragment {
         return cardType;
     }
 
+    public void filterCards(FilterModel2 filterModel) {
 
-        private class QueryDatabaseOperation extends AsyncTask<String, Void, Cursor> {
+        switch (cardType) {
+
+            case 0:
+                cardsAdapter.getFilter().filter(filterModel.getNameFilterQuery() + filterModel.getCryptFilterQuery());
+                break;
+            case 1:
+                cardsAdapter.getFilter().filter(filterModel.getNameFilterQuery() + filterModel.getLibraryFilterQuery());
+                break;
+
+
+        }
+    }
+
+
+    private class QueryDatabaseOperation extends AsyncTask<String, Void, Cursor> {
 
         @Override
         protected Cursor doInBackground(String... params) {

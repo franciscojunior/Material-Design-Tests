@@ -25,6 +25,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity
     private TextView search_bar_text_view;
 
     String filter = "";
+
+    FilterModel2 filterModel = new FilterModel2();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -224,34 +228,47 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        // Set filters navigationview contents based on current selected tab.
-
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                final View disciplinesHeader = findViewById(R.id.disciplinesHeader);
-                if (tab.getPosition() == 1) {
-                    disciplinesHeader.setVisibility(View.GONE);
-
-                } else {
-                    disciplinesHeader.setVisibility(View.VISIBLE);
-                }
 
 
-            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
 
-            }
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
 
-            }
-        });
 
+
+
+
+
+
+
+//        // Set filters navigationview contents based on current selected tab.
+//
+//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//
+//                final View disciplinesHeader = findViewById(R.id.disciplinesHeader);
+//                if (tab.getPosition() == 1) {
+//                    disciplinesHeader.setVisibility(View.GONE);
+//
+//                } else {
+//                    disciplinesHeader.setVisibility(View.VISIBLE);
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
+//
 
 
 
@@ -331,15 +348,11 @@ public class MainActivity extends AppCompatActivity
 
                 Log.d(TAG, "onQueryTextChange... ");
 
-                String newText = "%" + s.toString().toLowerCase() + "%";
+//                String newText = "%" + s.toString().toLowerCase() + "%";
 
-                for (CardsListFragment fragment:
-                        fragmentsToFilter2) {
+                filterModel.setName(s);
 
-                    Log.d(TAG, "onQueryTextChange: Thread Id: " + Thread.currentThread().getId());
-                    fragment.getCardsAdapter().getFilter().filter(" and lower(name) like '" + newText + "'" + filter);
-                }
-
+                filterCards();
 
 
             }
@@ -392,7 +405,9 @@ public class MainActivity extends AppCompatActivity
             public void onFocusChange(View v, boolean hasFocus) {
 
                 if (hasFocus) {
-                    playDrawerToggleAnim(drawerArrowDrawable);
+                    // Only animate if we are showing the burger icon.
+                    if (drawerArrowDrawable.getProgress() == 0.0)
+                        playDrawerToggleAnim(drawerArrowDrawable);
                 }
 
             }
@@ -400,6 +415,31 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
+    private void filterCards() {
+        for (CardsListFragment fragment:
+                fragmentsToFilter2) {
+
+            Log.d(TAG, "onQueryTextChange: Thread Id: " + Thread.currentThread().getId());
+
+            //fragment.getCardsAdapter().getFilter().filter(" and lower(name) like '" + newText + "'" + filterModel.getFilterQuery());
+
+            fragment.filterCards(filterModel);
+        }
+    }
+
+
+    public void groupsClickHandler (View v) {
+
+        CheckBox checkbox = (CheckBox) v;
+
+        filterModel.setGroup(checkbox.getText(), checkbox.isChecked());
+
+        filterCards();
+
+    }
+
+
 
 
 
