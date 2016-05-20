@@ -52,7 +52,9 @@
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="1"
-                    app:layout_widthPercent="16%" />
+                    app:layout_widthPercent="16%"
+                    android:onClick="groupsClickHandler"
+                    />
 
                 <CheckBox
                     android:id="@+id/checkBox2"
@@ -61,7 +63,9 @@
                     android:layout_toRightOf="@id/checkBox1"
                     android:checked="false"
                     android:text="2"
-                    app:layout_widthPercent="16%" />
+                    app:layout_widthPercent="16%"
+                    android:onClick="groupsClickHandler"
+                    />
 
                 <CheckBox
                     android:id="@+id/checkBox3"
@@ -70,7 +74,9 @@
                     android:layout_toRightOf="@id/checkBox2"
                     android:checked="false"
                     android:text="3"
-                    app:layout_widthPercent="16%" />
+                    app:layout_widthPercent="16%"
+                    android:onClick="groupsClickHandler"
+                    />
 
                 <CheckBox
                     android:id="@+id/checkBox4"
@@ -79,7 +85,9 @@
                     android:layout_toRightOf="@id/checkBox3"
                     android:checked="false"
                     android:text="4"
-                    app:layout_widthPercent="16%" />
+                    app:layout_widthPercent="16%"
+                    android:onClick="groupsClickHandler"
+                    />
 
                 <CheckBox
                     android:id="@+id/checkBox5"
@@ -88,7 +96,9 @@
                     android:layout_toRightOf="@id/checkBox4"
                     android:checked="false"
                     android:text="5"
-                    app:layout_widthPercent="16%" />
+                    app:layout_widthPercent="16%"
+                    android:onClick="groupsClickHandler"
+                    />
 
                 <CheckBox
                     android:id="@+id/checkBox6"
@@ -97,7 +107,9 @@
                     android:layout_toRightOf="@id/checkBox5"
                     android:checked="false"
                     android:text="6"
-                    app:layout_widthPercent="16%" />
+                    app:layout_widthPercent="16%"
+                    android:onClick="groupsClickHandler"
+                    />
             </android.support.percent.PercentRelativeLayout>
 
             <View
