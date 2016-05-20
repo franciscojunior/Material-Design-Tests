@@ -439,7 +439,14 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+//    Reference: http://stackoverflow.com/questions/11358121/how-to-handle-the-checkbox-ischecked-and-unchecked-event-in-android
+    public void disciplinesClickHandler(View view) {
 
+        int id = view.getId();
+
+
+
+    }
 
 
 
