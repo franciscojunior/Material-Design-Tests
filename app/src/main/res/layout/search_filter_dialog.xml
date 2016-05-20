@@ -51,10 +51,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:checked="false"
-                    android:text="1"
-                    app:layout_widthPercent="16%"
                     android:onClick="groupsClickHandler"
-                    />
+                    android:text="1"
+                    app:layout_widthPercent="16%" />
 
                 <CheckBox
                     android:id="@+id/checkBox2"
@@ -62,10 +61,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/checkBox1"
                     android:checked="false"
-                    android:text="2"
-                    app:layout_widthPercent="16%"
                     android:onClick="groupsClickHandler"
-                    />
+                    android:text="2"
+                    app:layout_widthPercent="16%" />
 
                 <CheckBox
                     android:id="@+id/checkBox3"
@@ -73,10 +71,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/checkBox2"
                     android:checked="false"
-                    android:text="3"
-                    app:layout_widthPercent="16%"
                     android:onClick="groupsClickHandler"
-                    />
+                    android:text="3"
+                    app:layout_widthPercent="16%" />
 
                 <CheckBox
                     android:id="@+id/checkBox4"
@@ -84,10 +81,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/checkBox3"
                     android:checked="false"
-                    android:text="4"
-                    app:layout_widthPercent="16%"
                     android:onClick="groupsClickHandler"
-                    />
+                    android:text="4"
+                    app:layout_widthPercent="16%" />
 
                 <CheckBox
                     android:id="@+id/checkBox5"
@@ -95,10 +91,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/checkBox4"
                     android:checked="false"
-                    android:text="5"
-                    app:layout_widthPercent="16%"
                     android:onClick="groupsClickHandler"
-                    />
+                    android:text="5"
+                    app:layout_widthPercent="16%" />
 
                 <CheckBox
                     android:id="@+id/checkBox6"
@@ -106,10 +101,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/checkBox5"
                     android:checked="false"
-                    android:text="6"
-                    app:layout_widthPercent="16%"
                     android:onClick="groupsClickHandler"
-                    />
+                    android:text="6"
+                    app:layout_widthPercent="16%" />
             </android.support.percent.PercentRelativeLayout>
 
             <View
@@ -184,6 +178,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineABO"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -192,6 +187,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicABO"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -215,6 +211,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineANI"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -223,6 +220,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicANI"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -247,6 +245,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineAUS"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -255,6 +254,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicAUS"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -279,6 +279,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineCEL"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -287,6 +288,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicCEL"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -311,6 +313,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineCHI"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -319,6 +322,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicCHI"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -343,6 +347,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineDAI"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -351,6 +356,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicDAI"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -375,6 +381,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineDEM"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -383,6 +390,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicDEM"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -407,6 +415,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineDOM"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -415,6 +424,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicDOM"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -439,6 +449,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineFOR"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -447,6 +458,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicFOR"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -471,6 +483,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineMEL"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -479,6 +492,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicMEL"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -503,6 +517,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineMYT"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -511,6 +526,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicMYT"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -535,6 +551,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineNEC"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -543,6 +560,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicNEC"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -567,6 +585,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineOBE"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -575,6 +594,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicOBE"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -599,6 +619,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineOBF"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -607,6 +628,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicOBF"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -631,6 +653,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineOBT"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -639,6 +662,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicOBT"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -663,6 +687,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplinePOT"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -671,6 +696,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicPOT"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -695,6 +721,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplinePRE"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -703,6 +730,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicPRE"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -727,6 +755,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplinePRO"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -735,6 +764,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicPRO"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -759,6 +789,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineQUI"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -767,6 +798,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicQUI"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -791,6 +823,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineSAN"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -799,6 +832,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicSAN"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -823,6 +857,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineSER"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -831,6 +866,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicSER"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -855,6 +891,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineSPI"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -863,6 +900,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicSPI"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -887,6 +925,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineTEM"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -895,6 +934,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicTEM"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -919,6 +959,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineTHA"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -927,6 +968,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicTHA"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -951,6 +993,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineTHN"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -959,6 +1002,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicTHN"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -983,6 +1027,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineVAL"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -991,6 +1036,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicVAL"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -1015,6 +1061,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineVIC"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -1023,6 +1070,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicVIC"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -1047,6 +1095,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/textViewDisciplineVIS"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
 
                     <CheckBox
@@ -1055,6 +1104,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/checkBoxDisciplineBasicVIS"
                         android:checked="false"
+                        android:onClick="disciplinesClickHandler"
                         app:layout_widthPercent="15%" />
                 </android.support.percent.PercentRelativeLayout>
 
@@ -2678,9 +2728,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="11dp"
-                    android:clickable="true"
                     android:background="?attr/selectableItemBackground"
-                    >
+                    android:clickable="true">
 
 
                     <TextView
@@ -2707,17 +2756,15 @@
                     android:id="@+id/checktextview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:gravity="center_vertical"
-                    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-                    android:text="Checked text"
                     android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
                     android:checked="true"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
                     android:paddingLeft="11dp"
                     android:paddingRight="16dp"
-                    />
-
+                    android:text="Checked text"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
             </LinearLayout>
