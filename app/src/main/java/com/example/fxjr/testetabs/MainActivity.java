@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity
 
     FilterModel2 filterModel = new FilterModel2();
 
+    boolean restoring = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +156,6 @@ public class MainActivity extends AppCompatActivity
 
         setupSearchFilterNavigation();
 
-
     }
 
     private void setupSearchFilterNavigation() {
@@ -192,6 +193,40 @@ public class MainActivity extends AppCompatActivity
         seekBarMax.setOnTouchListener(seekBarDisallowDrawerInterceptTouchEvent);
 
 
+        SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                switch (seekBar.getId()) {
+
+                    case R.id.seekBarCapacityMin:
+                        filterModel.setCapacityMin(progress);
+
+                        break;
+                    case R.id.seekBarCapacityMax:
+                        filterModel.setCapacityMax(progress);
+                        break;
+
+                }
+
+                filterCards();
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        };
+
+
+        seekBarMin.setOnSeekBarChangeListener(seekBarChangeListener);
+        seekBarMax.setOnSeekBarChangeListener(seekBarChangeListener);
 
 
         final View disciplinesHeader = findViewById(R.id.disciplinesHeader);
@@ -232,46 +267,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
-
-
-
-
-
-
-
-
-//        // Set filters navigationview contents based on current selected tab.
-//
-//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//
-//                final View disciplinesHeader = findViewById(R.id.disciplinesHeader);
-//                if (tab.getPosition() == 1) {
-//                    disciplinesHeader.setVisibility(View.GONE);
-//
-//                } else {
-//                    disciplinesHeader.setVisibility(View.VISIBLE);
-//                }
-//
-//
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
-//
-
-
-
     }
 
     private void setupExpandLayout(View header, final View layoutToExpand, final ImageView imgArrow) {
@@ -300,6 +295,59 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+
+        Log.d(TAG, "onRestoreInstanceState() called with: " + "savedInstanceState =");
+
+        restoring = true;
+        super.onRestoreInstanceState(savedInstanceState);
+
+
+        filterModel.name = savedInstanceState.getCharSequence("name");
+        filterModel.groups = savedInstanceState.getBooleanArray("groups");
+        filterModel.capacityMin = savedInstanceState.getInt("capacitymin");
+        filterModel.capacityMax = savedInstanceState.getInt("capacitymax");
+
+        filterModel.groupsFilterChanged = true;
+
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Log.d(TAG, "onSaveInstanceState() called with: " + "outState = ");
+
+        super.onSaveInstanceState(outState);
+
+
+
+        outState.putCharSequence("name", filterModel.name);
+        outState.putBooleanArray("groups", filterModel.groups);
+        outState.putInt("capacitymin", filterModel.capacityMin);
+        outState.putInt("capacitymax", filterModel.capacityMax);
+
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.d(TAG, "onResume() called with: " + "");
+
+        // If we are resuming after a restore instance state, we should filter again.
+        // TODO: 25/05/2016 Move this filter state handling to the fragment
+        if (restoring) {
+            filterCards();
+            restoring = false;
+        }
+
+
+
     }
 
     private void setupSearchContainter(FrameLayout search_container) {
@@ -346,13 +394,18 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                Log.d(TAG, "onQueryTextChange... ");
 
-//                String newText = "%" + s.toString().toLowerCase() + "%";
+                Log.d(TAG, "onTextChanged() called with: " + "s = [" + s + "], start = [" + start + "], before = [" + before + "], count = [" + count + "]");
 
-                filterModel.setName(s);
 
-                filterCards();
+
+
+                // If we are restoring, there is no need to filter now. It will be filtered at the end of activity restoring...
+                if (!restoring) {
+                    filterModel.setName(s);
+
+                    filterCards();
+                }
 
 
             }
@@ -417,12 +470,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void filterCards() {
+
+        Log.d(TAG, "filterCards() called with: " + "");
+
         for (CardsListFragment fragment:
                 fragmentsToFilter2) {
-
-            Log.d(TAG, "onQueryTextChange: Thread Id: " + Thread.currentThread().getId());
-
-            //fragment.getCardsAdapter().getFilter().filter(" and lower(name) like '" + newText + "'" + filterModel.getFilterQuery());
 
             fragment.filterCards(filterModel);
         }
