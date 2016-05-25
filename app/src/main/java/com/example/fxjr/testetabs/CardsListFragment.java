@@ -78,7 +78,7 @@ public class CardsListFragment extends Fragment {
 
             @Override
             public Cursor runQuery(CharSequence constraint) {
-                Log.d(TAG, "onQueryTextChange: Thread Id: " + Thread.currentThread().getId());
+                Log.d(TAG, "runQuery: Thread Id: " + Thread.currentThread().getId());
                 return db.rawQuery(query + constraint, null);
 
             }
