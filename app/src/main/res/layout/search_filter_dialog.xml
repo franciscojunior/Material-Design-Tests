@@ -2807,9 +2807,10 @@
                         android:id="@+id/seekBarCapacityMin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:indeterminate="false"
-                        android:max="11" />
+                        android:max="11"
+
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -2823,6 +2824,7 @@
 
                         android:indeterminate="false"
                         android:max="11" />
+
 
 
                 </LinearLayout>
@@ -2841,11 +2843,11 @@
         android:layout_alignParentStart="true"
         android:gravity="bottom"
         android:orientation="horizontal"
-        app:layout_heightPercent="15%">
+        app:layout_heightPercent="10%">
 
         <Button
             android:id="@+id/button"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Save filter"
@@ -2853,7 +2855,7 @@
 
         <Button
             android:id="@+id/button2"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/button"
