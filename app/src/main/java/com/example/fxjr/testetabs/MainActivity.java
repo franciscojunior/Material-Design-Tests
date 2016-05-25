@@ -197,19 +197,19 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-                switch (seekBar.getId()) {
-
-                    case R.id.seekBarCapacityMin:
-                        filterModel.setCapacityMin(progress);
-
-                        break;
-                    case R.id.seekBarCapacityMax:
-                        filterModel.setCapacityMax(progress);
-                        break;
-
-                }
-
-                filterCards();
+//                switch (seekBar.getId()) {
+//
+//                    case R.id.seekBarCapacityMin:
+//                        filterModel.setCapacityMin(progress);
+//
+//                        break;
+//                    case R.id.seekBarCapacityMax:
+//                        filterModel.setCapacityMax(progress);
+//                        break;
+//
+//                }
+//
+//                filterCards();
 
             }
 
@@ -220,6 +220,20 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+
+                switch (seekBar.getId()) {
+
+                    case R.id.seekBarCapacityMin:
+                        filterModel.setCapacityMin(seekBar.getProgress());
+
+                        break;
+                    case R.id.seekBarCapacityMax:
+                        filterModel.setCapacityMax(seekBar.getProgress());
+                        break;
+
+                }
+
+                filterCards();
 
             }
         };
