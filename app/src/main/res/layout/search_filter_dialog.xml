@@ -1181,7 +1181,8 @@
                         android:id="@+id/checkBoxClanAbomination"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/textClanAbomination"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:checked="false"
                         app:layout_widthPercent="15%" />
 
@@ -2835,33 +2836,59 @@
         </LinearLayout>
     </ScrollView>
 
-    <android.support.percent.PercentRelativeLayout
-        android:id="@+id/linearLayout2"
+    <!--<android.support.percent.PercentRelativeLayout-->
+        <!--android:id="@+id/linearLayout2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:gravity="bottom"-->
+        <!--android:orientation="horizontal"-->
+        <!--app:layout_heightPercent="10%">-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button"-->
+            <!--style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Save filter"-->
+            <!--app:layout_widthPercent="50%" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button2"-->
+            <!--style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_toRightOf="@id/button"-->
+            <!--android:text="Clear filter"-->
+            <!--app:layout_widthPercent="50%" />-->
+    <!--</android.support.percent.PercentRelativeLayout>-->
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:gravity="bottom"
-        android:orientation="horizontal"
-        app:layout_heightPercent="10%">
+        android:id="@+id/linearLayout2"
+        >
 
-        <Button
-            android:id="@+id/button"
-            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Save filter"
-            app:layout_widthPercent="50%" />
+        <!--<Button-->
+            <!--android:id="@+id/button"-->
+            <!--style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Save filter"-->
+            <!--android:layout_weight="1" />-->
 
         <Button
             android:id="@+id/button2"
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/button"
+
             android:text="Clear filter"
-            app:layout_widthPercent="50%" />
-    </android.support.percent.PercentRelativeLayout>
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </android.support.percent.PercentRelativeLayout>
