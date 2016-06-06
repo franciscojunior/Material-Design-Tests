@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SearchSettingsFragment.SearchSettingsHandler {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private final static String TAG = "MainActivity";
 
@@ -269,13 +270,13 @@ public class MainActivity extends AppCompatActivity
 
         setupExpandLayout(cardTypesHeader, cardTypesLayout, imgCardTypesLayoutArrow);
 
-        final CheckedTextView checkedTextView = (CheckedTextView)findViewById(R.id.checktextview);
-        checkedTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkedTextView.toggle();
-            }
-        });
+//        final CheckedTextView checkedTextView = (CheckedTextView)findViewById(R.id.checktextview);
+//        checkedTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                checkedTextView.toggle();
+//            }
+//        });
 
 
 
@@ -287,6 +288,7 @@ public class MainActivity extends AppCompatActivity
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (layoutToExpand.isShown()) {
                     layoutToExpand.setVisibility(View.GONE);
                     imgArrow.setImageResource(R.drawable.ic_expand_more_black_24dp);
@@ -319,6 +321,7 @@ public class MainActivity extends AppCompatActivity
         restoring = true;
         super.onRestoreInstanceState(savedInstanceState);
 
+        restoring = false;
 
         filterModel.name = savedInstanceState.getCharSequence("name");
         filterModel.groups = savedInstanceState.getBooleanArray("groups");
@@ -352,13 +355,6 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
 
         Log.d(TAG, "onResume() called with: " + "");
-
-        // If we are resuming after a restore instance state, we should filter again.
-        // TODO: 25/05/2016 Move this filter state handling to the fragment
-        if (restoring) {
-            filterCards();
-            restoring = false;
-        }
 
 
 
@@ -455,13 +451,19 @@ public class MainActivity extends AppCompatActivity
 //                        .setAction("Action", null).show();
 
 
-                SearchSettingsFragment searchSettingsFragment = SearchSettingsFragment.newInstance();
-                searchSettingsFragment.show(getSupportFragmentManager(), "search_settings_fragment");
+//                SearchSettingsFragment searchSettingsFragment = SearchSettingsFragment.newInstance();
+//                searchSettingsFragment.show(getSupportFragmentManager(), "search_settings_fragment");
 
 //                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 //
 //                drawer.openDrawer(GravityCompat.END);
 
+                // If the keyboard is present, hide it.
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(search_bar_text_view.getWindowToken(), 0);
+
+                // Open right navigation view.
+                drawerLayout.openDrawer(GravityCompat.END);
 
 
             }
@@ -511,9 +513,36 @@ public class MainActivity extends AppCompatActivity
         int id = view.getId();
 
 
+    }
+
+
+    public void cardTypesViewGroupClickHandler(View view) {
+
+        ViewGroup viewGroup = (ViewGroup) view;
+        TextView label = (TextView) viewGroup.getChildAt(0);
+        CheckBox checkBox = (CheckBox) viewGroup.getChildAt(1);
+
+        checkBox.toggle();
+
+        filterModel.setCardType(label.getText(), checkBox.isChecked());
+
+
 
     }
 
+    public void clansViewGroupClickHandler(View view) {
+
+        ViewGroup viewGroup = (ViewGroup) view;
+        TextView label = (TextView) viewGroup.getChildAt(0);
+        CheckBox checkBox = (CheckBox) viewGroup.getChildAt(1);
+
+        checkBox.toggle();
+
+        filterModel.setClan(label.getText(), checkBox.isChecked());
+
+        filterCards();
+
+    }
 
 
     @Override
@@ -629,35 +658,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
-        Log.d(TAG, "onNewIntent... ");
-
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 
 
-        }
-
-    }
-
-    @Override
-    public void filter(String filter) {
-
-        if (filter.length() > 0)
-            this.filter = " and _Group = 1";
-        else
-            this.filter = "";
-
-
-        for (CardsListFragment fragment:
-                fragmentsToFilter2) {
-
-            Log.d(TAG, "onQueryTextChange: Thread Id: " + Thread.currentThread().getId());
-
-            fragment.getCardsAdapter().getFilter().filter(" and lower(name) like '" + search_bar_text_view.getText() + "'" + filter);
-        }
-
-    }
 }

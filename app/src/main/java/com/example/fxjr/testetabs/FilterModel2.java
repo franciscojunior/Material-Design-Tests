@@ -1,6 +1,11 @@
 package com.example.fxjr.testetabs;
 
 import android.util.Log;
+import android.util.SparseBooleanArray;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Created by FranciscoJunior on 20/05/2016.
@@ -11,8 +16,9 @@ public class FilterModel2 {
 
     CharSequence name = "";
 
-    final String GROUP_CRYPT_FILTER = "(_group = '*' or _group in (?))";
-    final String CAPACITY_CRYPT_FILTER = "Cast(capacity as integer) between ";
+    private final String GROUP_CRYPT_FILTER = "(_group = '*' or _group in (?))";
+    private final String CAPACITY_CRYPT_FILTER = "Cast(capacity as integer) between ";
+    private final String CLAN_FILTER = "Clan = '?'";
 
     boolean groups[] = new boolean[6];
     boolean groupsFilterChanged;
@@ -20,6 +26,15 @@ public class FilterModel2 {
 
     int capacityMin = 1;
     int capacityMax = 11;
+
+
+
+    ArrayList<CharSequence> cardTypes = new ArrayList<>();
+
+
+    ArrayList<CharSequence> clans = new ArrayList<>();
+
+
 
     public String getGroupsQuery() {
 
@@ -49,8 +64,8 @@ public class FilterModel2 {
     }
 
 
-    public void setGroup(CharSequence text, boolean checked) {
-        groups[Integer.parseInt(text.toString()) - 1] = checked;
+    public void setGroup(CharSequence text, boolean isSet) {
+        groups[Integer.parseInt(text.toString()) - 1] = isSet;
         groupsFilterChanged = true;
     }
 
@@ -92,6 +107,20 @@ public class FilterModel2 {
         result.append(CAPACITY_CRYPT_FILTER).append(capacityMin).append(" AND ").append(capacityMax);
 
 
+        // Clans processing
+
+        if (clans.size() > 0) {
+            result.append(" and ( ");
+
+            for (CharSequence clan : clans) {
+                result.append(CLAN_FILTER.replace("?", clan)).append(" OR ");
+            }
+
+
+            // To avoid needing to remove the last 'OR'
+            result.append(" 1 = 0 ) ");
+        }
+
         Log.d(TAG, "getCryptFilterQuery() returned: " + result);
 
         return result.toString();
@@ -110,5 +139,24 @@ public class FilterModel2 {
 
     public void setCapacityMax(int progress) {
         capacityMax = progress;
+    }
+
+    public void setCardType(CharSequence cardType, boolean isSet) {
+
+        if (isSet)
+            cardTypes.add(cardType);
+        else
+            cardTypes.remove(cardType);
+
+    }
+
+    public void setClan(CharSequence clan, boolean isSet) {
+
+        if (isSet)
+            clans.add(clan);
+        else
+            clans.remove(clan);
+
+
     }
 }
