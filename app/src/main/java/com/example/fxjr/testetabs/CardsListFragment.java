@@ -22,7 +22,7 @@ public class CardsListFragment extends Fragment {
     private final static String TAG = "CardsListFragment";
 
 
-    private String filter;
+    private CharSequence filter;
     private int cardType;
     private String query;
 
@@ -63,10 +63,6 @@ public class CardsListFragment extends Fragment {
         cardType = getArguments().getInt("CardType");
         query = getArguments().getString("ListQuery");
 
-//        SQLiteDatabase db = DatabaseHelper.getDatabase();
-//
-//        Cursor c = db.rawQuery(query, null);
-
         if (cardType == 0)
             cardsAdapter = new CryptCardsListViewAdapter(getContext(), null);
         else
@@ -79,18 +75,36 @@ public class CardsListFragment extends Fragment {
             @Override
             public Cursor runQuery(CharSequence constraint) {
                 Log.d(TAG, "runQuery: Thread Id: " + Thread.currentThread().getId());
+                filter = constraint;
                 return db.rawQuery(query + constraint, null);
 
             }
 
         });
 
+        if (savedInstanceState != null) {
+            filter = savedInstanceState.getCharSequence("filter");
+        } else {
+            filter = "";
+        }
 
-        new QueryDatabaseOperation().execute(query);
+        //new QueryDatabaseOperation().execute(query + filter);
 
+        // Initialize the adapter with the filter constraint.
+        // This will be run in a different thread so it won't impact the UIThread
 
+        cardsAdapter.getFilter().filter(filter);
 
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putCharSequence("filter", filter);
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
