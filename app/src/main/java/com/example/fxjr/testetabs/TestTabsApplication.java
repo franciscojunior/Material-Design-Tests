@@ -27,7 +27,7 @@ public class TestTabsApplication extends Application {
         Log.d(TAG, "starting application");
 		DatabaseHelper.setApplicationContext(getApplicationContext());
 
-        new UpdateDatabaseOperation().execute();
+//        new UpdateDatabaseOperation().execute();
 
 
 //		FilterModel.initFilterModel(
