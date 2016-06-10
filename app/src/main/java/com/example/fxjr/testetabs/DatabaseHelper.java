@@ -58,7 +58,7 @@ public class DatabaseHelper {
     public static String ORDER_BY_NAME = " order by Name ";
 
 
-    public static SQLiteDatabase DATABASE = null;
+//	public static SQLiteDatabase DATABASE = null;
 
     public enum CardType {
 
@@ -157,84 +157,87 @@ public class DatabaseHelper {
 
     public static SQLiteDatabase getDatabase() {
 
+//        Reference: https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom
+//        Reference: http://stackoverflow.com/questions/7855700/why-is-volatile-used-in-this-example-of-double-checked-locking/36099644#36099644
+
         Log.d(TAG, "getDatabase ");
-        /*
-		 * File databaseFile = context.getFileStreamPath(CARDS_DB_NAME); return
-		 * SQLiteDatabase.openDatabase(databaseFile.gdfdfdetAbsolutePath(), null,
-		 * SQLiteDatabase.OPEN_READWRITE);
-		 */
 
-        if (DATABASE == null) {
-            //checkAndCreateDatabaseFile();
-
-            // The file will be stored in the private data area of the application.
-            // Reference:
-            // http://www.reigndesign.com/blog/using-your-own-sqlite-database-in-android-applications/
-            File databaseFile = APPLICATION_CONTEXT.getFileStreamPath(VAMPIDROID_DB);
-
-            // version where changelog has been viewed
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(APPLICATION_CONTEXT);
-            int databaseVersion = settings.getInt(KEY_DATABASE_VERSION, -1);
+        return LazyHolder.DATABASE;
+    }
 
 
-            if (databaseVersion != DATABASE_VERSION) {
-                // Update database version.
-                Editor editor = settings.edit();
-                editor.putInt(KEY_DATABASE_VERSION, DATABASE_VERSION);
-                editor.commit();
-            }
+    private static class LazyHolder {
+
+        private static final SQLiteDatabase DATABASE = initializeDatabase();
+    }
 
 
-            if (!databaseFile.exists()) {
-                Log.d(TAG, "Creating database file... ");
-                createCardsDatabaseFile();
-            }
+    private static SQLiteDatabase initializeDatabase() {
+        // The file will be stored in the private data area of the application.
+        // Reference:
+        // http://www.reigndesign.com/blog/using-your-own-sqlite-database-in-android-applications/
+        File databaseFile = APPLICATION_CONTEXT.getFileStreamPath(VAMPIDROID_DB);
+
+        // version where changelog has been viewed
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(APPLICATION_CONTEXT);
+        int databaseVersion = settings.getInt(KEY_DATABASE_VERSION, -1);
 
 
-            DATABASE = SQLiteDatabase.openDatabase(APPLICATION_CONTEXT.getFileStreamPath(VAMPIDROID_DB)
-                    .getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
-
-            DATABASE.execSQL("PRAGMA case_sensitive_like = true;");
-
-            if (databaseVersion != -1 && databaseVersion != DATABASE_VERSION) {
-
-                Log.d(TAG, "Starting database update...");
-
-                updateDatabaseCards();
-
-
-            }
-
-            Log.d(TAG, "database loaded ");
-
+        if (databaseVersion != DATABASE_VERSION) {
+            // Update database version.
+            Editor editor = settings.edit();
+            editor.putInt(KEY_DATABASE_VERSION, DATABASE_VERSION);
+            editor.commit();
         }
 
 
-        return DATABASE;
+        if (!databaseFile.exists()) {
+            Log.d(TAG, "Creating database file... ");
+            createCardsDatabaseFile();
+        }
+
+
+        SQLiteDatabase returnDatabase = SQLiteDatabase.openDatabase(APPLICATION_CONTEXT.getFileStreamPath(VAMPIDROID_DB)
+                .getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
+
+        returnDatabase.execSQL("PRAGMA case_sensitive_like = true;");
+
+        if (databaseVersion != -1 && databaseVersion != DATABASE_VERSION) {
+
+            Log.d(TAG, "Starting database update...");
+
+            updateDatabaseCards(returnDatabase);
+
+
+        }
+
+        Log.d(TAG, "database loaded ");
+
+        return returnDatabase;
     }
 
-    private static void updateDatabaseCards() {
+    private static void updateDatabaseCards(SQLiteDatabase database) {
 
         createUpdateDatabaseFile();
 
 
-        DATABASE.execSQL(" attach '" + APPLICATION_CONTEXT.getFileStreamPath(VAMPIDROID_UPDATE_DB)
+        database.execSQL(" attach '" + APPLICATION_CONTEXT.getFileStreamPath(VAMPIDROID_UPDATE_DB)
                 .getAbsolutePath() + "' as updatedb");
 
 
-        DATABASE.beginTransaction();
+        database.beginTransaction();
 
         try {
 
-            DATABASE.delete("crypt", null, null);
-            DATABASE.delete("library", null, null);
+            database.delete("crypt", null, null);
+            database.delete("library", null, null);
 
-            DATABASE.execSQL("insert into crypt select * from updatedb.crypt");
-            DATABASE.execSQL("insert into library select * from updatedb.library");
+            database.execSQL("insert into crypt select * from updatedb.crypt");
+            database.execSQL("insert into library select * from updatedb.library");
 
-            DATABASE.setTransactionSuccessful();
+            database.setTransactionSuccessful();
         } finally {
-            DATABASE.endTransaction();
+            database.endTransaction();
         }
 
 
@@ -246,11 +249,7 @@ public class DatabaseHelper {
     }
 
     public static void closeDatabase() {
-        if (DATABASE != null) {
-            DATABASE.close();
-            DATABASE = null;
-        }
-
+        LazyHolder.DATABASE.close();
     }
 
     private static void checkAndCreateDatabaseFile() {
