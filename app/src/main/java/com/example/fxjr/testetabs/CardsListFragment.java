@@ -39,7 +39,7 @@ public class CardsListFragment extends Fragment {
     public CardsListFragment() {
         Log.d(TAG, "CardsListFragment constructor " + this);
 
-        db = DatabaseHelper.getDatabase();
+        //db = DatabaseHelper.getDatabase();
         //Thread.dumpStack();
 
     }
@@ -76,7 +76,7 @@ public class CardsListFragment extends Fragment {
             public Cursor runQuery(CharSequence constraint) {
                 Log.d(TAG, "runQuery: Thread Id: " + Thread.currentThread().getId());
                 filter = constraint;
-                return db.rawQuery(query + constraint, null);
+                return DatabaseHelper.getDatabase().rawQuery(query + constraint, null);
 
             }
 
@@ -88,7 +88,7 @@ public class CardsListFragment extends Fragment {
             filter = "";
         }
 
-        //new QueryDatabaseOperation().execute(query + filter);
+//        new QueryDatabaseOperation().execute(query + filter);
 
         // Initialize the adapter with the filter constraint.
         // This will be run in a different thread so it won't impact the UIThread
