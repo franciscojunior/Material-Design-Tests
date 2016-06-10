@@ -96,6 +96,9 @@ public class MainActivity extends AppCompatActivity
                 appbar.setExpanded(true);
                 search_bar_text_view.requestFocus();
 
+                // TODO: 07/06/2016 Check a way to show the softkeybard when the appbar animation is enabled.
+                // Currently, the keyboard is shown but immediately after it is hidden again because the edittext is not visible yet.
+
                 // Reference: http://stackoverflow.com/questions/2403632/android-show-soft-keyboard-automatically-when-focus-is-on-an-edittext
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(search_bar_text_view, InputMethodManager.SHOW_IMPLICIT);

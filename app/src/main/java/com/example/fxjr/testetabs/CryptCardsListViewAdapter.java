@@ -1,8 +1,13 @@
 package com.example.fxjr.testetabs;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,8 +104,18 @@ public class CryptCardsListViewAdapter extends CursorRecyclerAdapter<CryptCardsL
         @Override
         public void onClick(View v) {
 
-            Snackbar.make(v, "Clicked on card " + txtCardName.getText(), Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+            Intent launch = new Intent(v.getContext(), CardDetailsActivity.class);
+            launch.putExtra("cardName", txtCardName.getText());
+            launch.putExtra("cardText", txtInitialCardText.getText());
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+
+                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity)v.getContext(), txtInitialCardText, "cardTextTransition").toBundle();
+                v.getContext().startActivity(launch, bundle);
+            } else
+                v.getContext().startActivity(launch);
+
+
 
         }
     }
