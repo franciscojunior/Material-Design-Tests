@@ -60,6 +60,8 @@ public class CardsListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d(TAG, "onCreate() called with: savedInstanceState = [" + savedInstanceState + "]");
+
         cardType = getArguments().getInt("CardType");
         query = getArguments().getString("ListQuery");
 
