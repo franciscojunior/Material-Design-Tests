@@ -158,7 +158,11 @@ public class MainActivity extends AppCompatActivity
         });
 
 
+        // TODO: 11/06/16 Check how to make those initializations off the main thread.
         setupSearchFilterNavigation();
+
+
+
 
     }
 
