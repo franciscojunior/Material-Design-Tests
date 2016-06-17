@@ -29,8 +29,8 @@
 
         <ImageView
             android:src="@drawable/ic_dis_celerity_sup"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:id="@+id/img_card_details_discipline1"
             app:layout_constraintLeft_toLeftOf="@+id/textView20"
             android:layout_marginLeft="16dp"
@@ -41,8 +41,8 @@
 
         <ImageView
             android:src="@drawable/ic_dis_celerity_sup"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:id="@+id/img_card_details_discipline2"
             app:layout_constraintLeft_toRightOf="@+id/img_card_details_discipline1"
             android:layout_marginLeft="8dp"
@@ -53,8 +53,8 @@
 
         <ImageView
             android:src="@drawable/ic_dis_celerity_sup"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:id="@+id/img_card_details_discipline3"
             app:layout_constraintLeft_toRightOf="@+id/img_card_details_discipline2"
             android:layout_marginLeft="8dp"
@@ -64,8 +64,8 @@
 
         <ImageView
             android:src="@drawable/ic_dis_celerity_sup"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:id="@+id/img_card_details_discipline4"
             app:layout_constraintLeft_toRightOf="@+id/img_card_details_discipline3"
             android:layout_marginLeft="8dp"
@@ -76,8 +76,8 @@
         <ImageView
             android:id="@+id/img_card_details_discipline5"
             android:src="@drawable/ic_dis_celerity_sup"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             app:layout_constraintLeft_toRightOf="@+id/img_card_details_discipline4"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
@@ -88,8 +88,8 @@
         <ImageView
             android:id="@+id/img_card_details_discipline6"
             android:src="@drawable/ic_dis_celerity_sup"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             app:layout_constraintLeft_toRightOf="@+id/img_card_details_discipline5"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
