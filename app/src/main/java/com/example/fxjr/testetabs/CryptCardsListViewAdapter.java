@@ -67,6 +67,7 @@ public class CryptCardsListViewAdapter extends CursorRecyclerAdapter<CryptCardsL
     @Override
     public void onBindViewHolderCursor(ViewHolder viewHolder, Cursor cursor) {
 
+        viewHolder.cardId = cursor.getLong(0);
         viewHolder.txtInitialCardText.setText(cursor.getString(4));
         viewHolder.txtCardName.setText(cursor.getString(1));
         viewHolder.txtCardCost.setText(cursor.getString(3));
@@ -85,6 +86,7 @@ public class CryptCardsListViewAdapter extends CursorRecyclerAdapter<CryptCardsL
         public TextView txtCardExtraInformation;
         public TextView txtCardCost;
         public TextView txtCardGroup;
+        public long cardId;
 
 
         public ViewHolder(View v) {
@@ -107,6 +109,7 @@ public class CryptCardsListViewAdapter extends CursorRecyclerAdapter<CryptCardsL
             Intent launch = new Intent(v.getContext(), CardDetailsActivity.class);
             launch.putExtra("cardName", txtCardName.getText());
             launch.putExtra("cardText", txtInitialCardText.getText());
+            launch.putExtra("cardId", cardId);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
 
