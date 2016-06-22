@@ -47,4 +47,10 @@
         <item name="android:layout_marginRight">20dp</item>
 
     </style>
+
+    <style name="CardDetailsCollapsedAppBarTitle" parent="@android:style/TextAppearance">
+        <item name="android:textSize">32sp</item>
+
+    </style>
+
 </resources>

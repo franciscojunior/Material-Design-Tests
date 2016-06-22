@@ -1,6 +1,7 @@
 package com.example.fxjr.testetabs;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +42,24 @@ public class CardDetailsActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+            collapsingToolbarLayout.setExpandedTitleMarginBottom(220);
+            collapsingToolbarLayout.setExpandedTitleMarginStart(200);
+
+
+            // If we are in landscape, let the tile fixed on top.
+            // Reference: http://stackoverflow.com/questions/2795833/check-orientation-on-android-phone#2799001
+            //collapsingToolbarLayout.setTitleEnabled(false);
+//            toolbar.setTitleTextAppearance(this, R.style.CardDetailsCollapsedAppBarTitle);
+
+//            Reference: http://stackoverflow.com/questions/36560292/how-to-increase-font-size-of-title-in-collapsingtoolbarlayout
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CardDetailsCollapsedAppBarTitle);
+
+        }
 
 
         fillImageViewsDrawablesMap(this);
