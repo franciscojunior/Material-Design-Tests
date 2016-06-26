@@ -5,13 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/constraintLayout">
+    android:id="@+id/constraintLayout"
+    >
 
     <TextView
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Card details"
+        android:text="Disciplines"
+        style="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
@@ -19,10 +21,10 @@
         android:layout_marginTop="16dp" />
 
     <ImageView
-        android:src="@drawable/ic_dis_celerity_sup"
+        android:id="@+id/img_card_details_discipline1"
+        tools:src="@drawable/ic_dis_celerity_sup"
         android:layout_width="@dimen/card_details_image_size"
         android:layout_height="@dimen/card_details_image_size"
-        android:id="@+id/img_card_details_discipline1"
         app:layout_constraintLeft_toLeftOf="@+id/textView20"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
@@ -31,10 +33,10 @@
 
 
     <ImageView
-        android:src="@drawable/ic_dis_celerity_sup"
+        android:id="@+id/img_card_details_discipline2"
+        tools:src="@drawable/ic_dis_celerity_sup"
         android:layout_width="@dimen/card_details_image_size"
         android:layout_height="@dimen/card_details_image_size"
-        android:id="@+id/img_card_details_discipline2"
         app:layout_constraintLeft_toRightOf="@+id/img_card_details_discipline1"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
@@ -43,10 +45,10 @@
 
 
     <ImageView
-        android:src="@drawable/ic_dis_celerity_sup"
+        android:id="@+id/img_card_details_discipline3"
+        tools:src="@drawable/ic_dis_celerity_sup"
         android:layout_width="@dimen/card_details_image_size"
         android:layout_height="@dimen/card_details_image_size"
-        android:id="@+id/img_card_details_discipline3"
         app:layout_constraintLeft_toRightOf="@+id/img_card_details_discipline2"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
@@ -54,10 +56,10 @@
         android:layout_marginTop="16dp" />
 
     <ImageView
-        android:src="@drawable/ic_dis_celerity_sup"
+        android:id="@+id/img_card_details_discipline4"
+        tools:src="@drawable/ic_dis_celerity_sup"
         android:layout_width="@dimen/card_details_image_size"
         android:layout_height="@dimen/card_details_image_size"
-        android:id="@+id/img_card_details_discipline4"
         app:layout_constraintLeft_toRightOf="@+id/img_card_details_discipline3"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
@@ -66,7 +68,7 @@
 
     <ImageView
         android:id="@+id/img_card_details_discipline5"
-        android:src="@drawable/ic_dis_celerity_sup"
+        tools:src="@drawable/ic_dis_celerity_sup"
         android:layout_width="@dimen/card_details_image_size"
         android:layout_height="@dimen/card_details_image_size"
         app:layout_constraintLeft_toRightOf="@+id/img_card_details_discipline4"
@@ -78,7 +80,7 @@
 
     <ImageView
         android:id="@+id/img_card_details_discipline6"
-        android:src="@drawable/ic_dis_celerity_sup"
+        tools:src="@drawable/ic_dis_celerity_sup"
         android:layout_width="@dimen/card_details_image_size"
         android:layout_height="@dimen/card_details_image_size"
         app:layout_constraintLeft_toRightOf="@+id/img_card_details_discipline5"
@@ -89,16 +91,16 @@
 
 
     <TextView
+        android:id="@+id/textView23"
         android:text="Card Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView23"
+        style="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         app:layout_constraintTop_toBottomOf="@+id/img_card_details_discipline1"
-        android:layout_marginTop="32dp"
-        app:layout_constraintRight_toRightOf="@+id/img_card_details_discipline1" />
+        android:layout_marginTop="32dp" />
 
     <TextView
         android:id="@+id/cardText"
