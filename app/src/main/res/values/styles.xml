@@ -49,7 +49,7 @@
     </style>
 
     <style name="CardDetailsCollapsedAppBarTitle" parent="@android:style/TextAppearance">
-        <item name="android:textSize">32sp</item>
+        <item name="android:textSize">16sp</item>
 
     </style>
 
