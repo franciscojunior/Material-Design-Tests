@@ -8,16 +8,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
 public class CardDetailsActivity extends AppCompatActivity {
@@ -62,7 +65,7 @@ public class CardDetailsActivity extends AppCompatActivity {
         }
 
 
-        fillImageViewsDrawablesMap(this);
+        //fillImageViewsDrawablesMap(this);
 
 
         setupDisciplineImagesArray();
@@ -114,31 +117,41 @@ public class CardDetailsActivity extends AppCompatActivity {
 
 
 
+//        String[] disciplines = cardDisciplines.split(" ");
+//
+//        int disIndex = 0;
+//        for (String discipline : disciplines) {
+//            disciplineImageViews[disIndex].setImageDrawable(imageViewsDrawablesMap.get(discipline));
+//            //viewHolder.disciplineImageViews[disIndex].setImageBitmap(imageViewsDrawablesMap.get(discipline));
+//            disciplineImageViews[disIndex].setVisibility(View.VISIBLE);
+//            disIndex++;
+//        }
+//
+//        clearDisciplineImageViews(disIndex);
 
-        String[] disciplines = cardDisciplines.split(" ");
+        Log.d(TAG, "setupCardData: Thread Id: " + Thread.currentThread().getId());
 
-        int disIndex = 0;
-        for (String discipline : disciplines) {
-            disciplineImageViews[disIndex].setImageDrawable(imageViewsDrawablesMap.get(discipline));
-            //viewHolder.disciplineImageViews[disIndex].setImageBitmap(imageViewsDrawablesMap.get(discipline));
-            disciplineImageViews[disIndex].setVisibility(View.VISIBLE);
-            disIndex++;
-        }
-
-        clearDisciplineImageViews(disIndex);
-
+        new UpdateDisciplineImagesOperation().execute(cardDisciplines);
 
         getSupportActionBar().setTitle(cardName);
         txtCardText.setText(cardText);
     }
 
 
-    private static final HashMap<String, Drawable> imageViewsDrawablesMap = new HashMap<>();
+//    Reference: http://stackoverflow.com/questions/3243215/how-to-use-weakreference-in-java-and-android-development
+    private static WeakReference<HashMap<String, Drawable>> imageViewsDrawablesMapReference;
 
 
     private static void fillImageViewsDrawablesMap(Context context) {
 
+        HashMap<String, Drawable> imageViewsDrawablesMap;
 
+        if (imageViewsDrawablesMapReference == null || imageViewsDrawablesMapReference.get() == null) {
+            imageViewsDrawablesMap = new HashMap<>();
+            imageViewsDrawablesMapReference = new WeakReference<>(imageViewsDrawablesMap);
+        } else {
+            imageViewsDrawablesMap = imageViewsDrawablesMapReference.get();
+        }
 
         if (imageViewsDrawablesMap.isEmpty()) {
 
@@ -212,9 +225,7 @@ public class CardDetailsActivity extends AppCompatActivity {
     private ImageView[] disciplineImageViews = new ImageView[6];
 
     private void clearDisciplineImageViews() {
-        for (ImageView disciplineImageView : disciplineImageViews) {
-            disciplineImageView.setImageDrawable(null);
-        }
+        clearDisciplineImageViews(0);
 
     }
 
@@ -225,5 +236,51 @@ public class CardDetailsActivity extends AppCompatActivity {
 
         }
 
+    }
+
+
+
+
+    private class UpdateDisciplineImagesOperation extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            Log.d(TAG, "doInBackground: Thread Id: " + Thread.currentThread().getId());
+            fillImageViewsDrawablesMap(CardDetailsActivity.this);
+
+            return strings[0];
+        }
+
+        @Override
+        protected void onPostExecute(String cardDisciplines) {
+
+            Log.d(TAG, "onPostExecute... ");
+
+            Log.d(TAG, "onPostExecute: Thread Id: " + Thread.currentThread().getId());
+
+            String[] disciplines = cardDisciplines.split(" ");
+
+            HashMap<String, Drawable> imageViewsDrawablesMap = imageViewsDrawablesMapReference.get();
+            if (imageViewsDrawablesMap != null) {
+
+                int disIndex = 0;
+                for (String discipline : disciplines) {
+                    disciplineImageViews[disIndex].setImageDrawable(imageViewsDrawablesMap.get(discipline));
+                    //viewHolder.disciplineImageViews[disIndex].setImageBitmap(imageViewsDrawablesMap.get(discipline));
+                    disciplineImageViews[disIndex].setVisibility(View.VISIBLE);
+                    disIndex++;
+                }
+
+                clearDisciplineImageViews(disIndex);
+            } else {
+                clearDisciplineImageViews();
+            }
+
+
+
+
+
+        }
     }
 }
