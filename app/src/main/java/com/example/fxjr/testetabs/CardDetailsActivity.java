@@ -1,6 +1,8 @@
 package com.example.fxjr.testetabs;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -9,10 +11,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -46,6 +50,25 @@ public class CardDetailsActivity extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        final ImageView cardImage = (ImageView) findViewById(R.id.cardImage);
+
+        cardImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent showCardImage = new Intent(view.getContext(), CardImageActivity.class);
+                showCardImage.putExtra("cardId", getIntent().getExtras().getLong("cardId"));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+
+                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(CardDetailsActivity.this, cardImage, "cardImageTransition").toBundle();
+                    view.getContext().startActivity(showCardImage, bundle);
+                } else
+                    view.getContext().startActivity(showCardImage);
+
+
+            }
+        });
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 

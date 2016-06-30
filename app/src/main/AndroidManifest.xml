@@ -12,11 +12,13 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop">
-            <!-- In order to have a single instance when implementing Up navigation we use singleTop.
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!--
+             In order to have a single instance when implementing Up navigation we use singleTop.
              Reference: http://stackoverflow.com/questions/13293772/how-to-navigate-up-to-the-same-parent-state
-             -->
+            -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,6 +34,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.fxjr.testetabs.MainActivity" />
         </activity>
+        <activity
+            android:name=".CardImageActivity"
+            android:label="@string/title_activity_card_image"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

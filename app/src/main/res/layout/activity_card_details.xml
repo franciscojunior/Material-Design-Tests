@@ -28,7 +28,9 @@
             <!--Reference: https://github.com/chrisbanes/cheesesquare/blob/master/app/src/main/res/layout/activity_detail.xml-->
             <!--Reference: https://github.com/codepath/android_guides/wiki/Handling-Scrolls-with-CoordinatorLayout-->
             <ImageView
+                android:id="@+id/cardImage"
                 android:src="@drawable/gold_back"
+                android:transitionName="cardImageTransition"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
