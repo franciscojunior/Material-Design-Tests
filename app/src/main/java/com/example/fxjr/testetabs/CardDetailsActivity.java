@@ -53,6 +53,10 @@ public class CardDetailsActivity extends AppCompatActivity {
 
         final ImageView cardImage = (ImageView) findViewById(R.id.cardImage);
 
+        setupToolbarImage(cardImage);
+
+
+
         cardImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,6 +99,15 @@ public class CardDetailsActivity extends AppCompatActivity {
 
         setupCardData();
 
+    }
+
+    private void setupToolbarImage(ImageView cardImage) {
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+
+        Resources res = getResources();
+        cardImage.setImageDrawable(new BitmapDrawable(res, BitmapFactory.decodeResource(res, R.drawable.gold_back, options)));
     }
 
     private void setupDisciplineImagesArray() {
