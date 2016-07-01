@@ -1,7 +1,11 @@
 package com.example.fxjr.testetabs;
 
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,10 +30,21 @@ public class CardImageActivity extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.cardImage);
 
-        imageView.setImageResource(R.drawable.gold_back);
+
+        setupToolbarImage(imageView);
 
 
 
+    }
+
+
+    private void setupToolbarImage(ImageView cardImage) {
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+
+        Resources res = getResources();
+        cardImage.setImageDrawable(new BitmapDrawable(res, BitmapFactory.decodeResource(res, R.drawable.gold_back, options)));
     }
 
     public void fullScreen() {
