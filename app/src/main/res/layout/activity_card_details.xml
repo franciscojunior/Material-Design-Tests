@@ -29,11 +29,11 @@
             <!--Reference: https://github.com/codepath/android_guides/wiki/Handling-Scrolls-with-CoordinatorLayout-->
             <ImageView
                 android:id="@+id/cardImage"
-                android:src="@drawable/gold_back"
+                tools:src="@drawable/gold_back"
                 android:transitionName="cardImageTransition"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/app_bar_height"
                 android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax"
