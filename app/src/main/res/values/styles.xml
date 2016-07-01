@@ -15,6 +15,12 @@
 
     </style>
 
+    <style name="AppTheme.NoActionBar.BlackStatusBarColor">
+
+    </style>
+
+
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -51,6 +57,15 @@
     <style name="CardDetailsCollapsedAppBarTitle" parent="@android:style/TextAppearance">
         <item name="android:textSize">16sp</item>
 
+    </style>
+
+
+    <style name="ActivityThemeCardImage" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@android:color/black</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="drawerArrowStyle">@style/MainDrawerStyle</item>
     </style>
 
 </resources>
