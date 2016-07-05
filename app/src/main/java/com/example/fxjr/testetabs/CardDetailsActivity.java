@@ -1,6 +1,5 @@
 package com.example.fxjr.testetabs;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -31,6 +30,8 @@ public class CardDetailsActivity extends AppCompatActivity {
 
     private static final String TAG = "CardDetailsActivity";
     private static String QUERY_CRYPT = "select Name, Type, Clan, Disciplines, CardText, Capacity, Artist, _Set, _Group from crypt where _id = ?";
+    private ImageView cardImage;
+    private String cardName;
 
 
     @Override
@@ -51,9 +52,8 @@ public class CardDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        final ImageView cardImage = (ImageView) findViewById(R.id.cardImage);
+        cardImage = (ImageView) findViewById(R.id.cardImage);
 
-        setupToolbarImage(cardImage);
 
 
 
@@ -63,6 +63,7 @@ public class CardDetailsActivity extends AppCompatActivity {
 
                 Intent showCardImage = new Intent(view.getContext(), CardImageActivity.class);
                 showCardImage.putExtra("cardId", getIntent().getExtras().getLong("cardId"));
+                showCardImage.putExtra("cardName", cardName);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
 
                     Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(CardDetailsActivity.this, cardImage, "cardImageTransition").toBundle();
@@ -101,14 +102,9 @@ public class CardDetailsActivity extends AppCompatActivity {
 
     }
 
-    private void setupToolbarImage(ImageView cardImage) {
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
 
-        Resources res = getResources();
-        cardImage.setImageDrawable(new BitmapDrawable(res, BitmapFactory.decodeResource(res, R.drawable.gold_back, options)));
-    }
+
 
     private void setupDisciplineImagesArray() {
 
@@ -139,7 +135,7 @@ public class CardDetailsActivity extends AppCompatActivity {
         Cursor c = db.rawQuery(query, new String[] {String.valueOf(cardId)});
         c.moveToFirst();
 
-        String cardName = c.getString(0);
+        cardName = c.getString(0);
         String cardType = c.getString(1);
         String cardClan = c.getString(2);
         String cardDisciplines = c.getString(3);
@@ -171,6 +167,8 @@ public class CardDetailsActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle(cardName);
         txtCardText.setText(cardText);
+
+        Utils.loadCardImage(cardImage, cardName, getResources());
     }
 
 
