@@ -2,7 +2,6 @@ package com.example.fxjr.testetabs;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -27,7 +26,6 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -131,28 +129,28 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    float appbarHeight = appBarLayout.getHeight();
-                    float tabbarHeight = tabLayout.getHeight();
-
-
-//                    Log.d(TAG, "onOffsetChanged: tabbar" + tabbarHeight);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//                    float appbarHeight = appBarLayout.getHeight();
+//                    float tabbarHeight = tabLayout.getHeight();
 //
-//                    Log.d(TAG, "onOffsetChanged: appbar" + appbarHeight);
 //
-//                    Log.d(TAG, "onOffsetChanged: " + verticalOffset);
-
-                    if (verticalOffset == 0) {
-                        tabLayout.setAlpha(1);
-//                        fab.show();
-                    }
-                    else if (appbarHeight + verticalOffset <= tabbarHeight ){
-                        tabLayout.setAlpha((appbarHeight + verticalOffset)/tabbarHeight);
-//                        fab.hide();
-                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(search_bar_text_view.getWindowToken(), 0);
-                    }
-                }
+////                    Log.d(TAG, "onOffsetChanged: tabbar" + tabbarHeight);
+////
+////                    Log.d(TAG, "onOffsetChanged: appbar" + appbarHeight);
+////
+////                    Log.d(TAG, "onOffsetChanged: " + verticalOffset);
+//
+//                    if (verticalOffset == 0) {
+//                        tabLayout.setAlpha(1);
+////                        fab.show();
+//                    }
+//                    else if (appbarHeight + verticalOffset <= tabbarHeight ){
+//                        tabLayout.setAlpha((appbarHeight + verticalOffset)/tabbarHeight);
+////                        fab.hide();
+//                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//                        imm.hideSoftInputFromWindow(search_bar_text_view.getWindowToken(), 0);
+//                    }
+//                }
 
             }
         });
