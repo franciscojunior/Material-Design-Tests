@@ -1,22 +1,25 @@
 package com.example.fxjr.testetabs;
 
-import android.content.res.Resources;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+
 public class CardImageActivity extends AppCompatActivity {
 
     private static final String TAG = "CardImageActivity";
+    private int defaultUIOptions;
+
+    // Reference: https://developer.android.com/training/system-ui/navigation.html
+    private final int uiOptionsFullScreen = View.SYSTEM_UI_FLAG_FULLSCREEN
+            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+
+    private boolean inFullScreenMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,21 +34,36 @@ public class CardImageActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.cardImage);
 
 
-        setupToolbarImage(imageView);
 
 
+        Utils.loadCardImage(imageView, getIntent().getExtras().getString("cardName"), getResources());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            defaultUIOptions = getWindow().getDecorView().getSystemUiVisibility();
+        }
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    View decorView = getWindow().getDecorView();
+
+                    if (inFullScreenMode) {
+                        decorView.setSystemUiVisibility(defaultUIOptions);
+
+                    } else {
+                        decorView.setSystemUiVisibility(uiOptionsFullScreen);
+                    }
+                }
+
+            }
+        });
 
     }
 
 
-    private void setupToolbarImage(ImageView cardImage) {
-
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
-
-        Resources res = getResources();
-        cardImage.setImageDrawable(new BitmapDrawable(res, BitmapFactory.decodeResource(res, R.drawable.gold_back, options)));
-    }
 
     public void fullScreen() {
 
